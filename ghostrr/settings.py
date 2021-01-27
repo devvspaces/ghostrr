@@ -26,7 +26,7 @@ SECRET_KEY = '2!ykqjt710z7(dab7z^6%jw-)^_epr5ff!7b6fm*+46i4ld@8_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','localhost']
 
 
 # Application definition
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
    'rest_framework',
    'oauth2_provider',
    'social_django',
+#    'social.apps.django_app.default',
    'drf_social_oauth2',
     'corsheaders',
    # LOCAL
@@ -79,6 +80,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',
                'social_django.context_processors.login_redirect',
+    #            'social.apps.django_app.context_processors.backends',
+    # 'social.apps.django_app.context_processors.login_redirect',
             ],
         },
     },
@@ -87,7 +90,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'ghostrr.wsgi.application'
 
 AUTHENTICATION_BACKENDS = (
-    # 'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.github.GithubOAuth2',
     # 'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.facebook.FacebookOAuth2',
     'drf_social_oauth2.backends.DjangoOAuth2',
@@ -151,6 +154,9 @@ USE_TZ = True
 
 SOCIAL_AUTH_GITHUB_KEY = '16a4a6f93d87719992e6'
 SOCIAL_AUTH_GITHUB_SECRET = 'c9c93ba12639660c4c142a0d918022477393dc27'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '965291520898027'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'd2f892119bf1d3a4828e3a027831e281'
 
 STATICFILES_DIRS= [
     os.path.join(BASE_DIR, 'static/')

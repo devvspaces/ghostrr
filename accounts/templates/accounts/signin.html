@@ -12,7 +12,7 @@
     <div class="auth_box">
         <form method="POST">
             {% csrf_token %}
-            <h3>Sign In</h3>
+            <h3>Login</h3>
             <fieldset error='{% if form.email.errors %}True{% endif %}'>
                 <label>Email</label>
                 <input type="email" name='email' value="{% if form.email.value %}{{form.email.value}}{% endif %}">
@@ -42,6 +42,9 @@
             <button class="submit btn">Login</button>
             <a href="{% url 'register' %}" class="btn">Get Started</a>
             <a href="#" class="forget">Forget password?</a>
+            <p class="or"><strong>OR</strong></p>
+            <!-- <a href="{% url 'social:begin' 'github' %}" class="btn">Login with GitHub</a> -->
+            <a href="{% url 'social:begin' 'facebook' %}" class="btn">Login with Facebook</a>
         </form>
     </div>
 {% endblock %}

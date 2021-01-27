@@ -12,7 +12,7 @@
     <div class="auth_box">
         <form method="POST">
             {% csrf_token %}
-            <h3>Create awesome contents today!</h3>
+            <h3>Create Awesome Contents Today!</h3>
             <fieldset error='{% if form.username.errors %}True{% endif %}'>
                 <label>Username</label>
                 <input type="text" name='username' value="{% if form.username.value %}{{form.username.value}}{% endif %}">
@@ -52,8 +52,8 @@
                     {% endif %}
                 </small>
             </fieldset>
-            <button class="submit btn">Get started</button>
-            <a href="{% url 'signin' %}" class="btn">Sign in</a>
+            <button class="submit btn">Get Started</button>
+            <a href="{% url 'signin' %}" class="btn">Login</a>
         </form>
     </div>
 {% endblock %}
