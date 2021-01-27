@@ -1,0 +1,47 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div id='hero'>
+        {% include 'blog/navigation.html' %}
+        <!-- <div class="subsection">
+            <h1>Create awesome contents today!</h1>
+        </div> -->
+    </div>
+
+    <div class="auth_box">
+        <form method="POST">
+            {% csrf_token %}
+            <h3>Sign In</h3>
+            <fieldset error='{% if form.email.errors %}True{% endif %}'>
+                <label>Email</label>
+                <input type="email" name='email' value="{% if form.email.value %}{{form.email.value}}{% endif %}">
+                <small>
+                    {% if form.email.errors %}
+                        {% for i in form.email.errors %}
+                        {{ i }}<br>
+                        {% endfor %}
+                    {% else %}
+                        {{form.email.help_text}}
+                    {% endif %}
+                </small>
+            </fieldset>
+            <fieldset error='{% if form.password.errors %}True{% endif %}'>
+                <label>Password</label>
+                <input type="password" name='password' value="{% if form.password.value %}{{form.password.value}}{% endif %}">
+                <small>
+                    {% if form.password.errors %}
+                        {% for i in form.password.errors %}
+                        {{ i }}<br>
+                        {% endfor %}
+                    {% else %}
+                        {{form.password.help_text}}
+                    {% endif %}
+                </small>
+            </fieldset>
+            <button class="submit btn">Login</button>
+            <a href="{% url 'register' %}" class="btn">Get Started</a>
+            <a href="#" class="forget">Forget password?</a>
+        </form>
+    </div>
+{% endblock %}

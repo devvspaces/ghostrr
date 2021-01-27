@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+        <meta name="generator" content="Hugo 0.79.0">
+        {% if title %}
+            <title>Ghostrr - {{title}}</title>
+        {% else %}
+            <title>Ghostrr</title>
+        {% endif %}
+
+        <!-- Css files -->
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+        <link rel="canonical" href="home">
+
+        <!-- Favicons -->
+        <link rel="apple-touch-icon" href="/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+        <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+        <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+        <link rel="manifest" href="/docs/5.0/assets/img/favicons/manifest.json">
+        <link rel="mask-icon" href="/docs/5.0/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
+        <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico">
+        <meta name="theme-color" content="#7952b3">
+    </head>
+    <body>
+
+        {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">
+            <span class="close"><i class="fas fa-times"></i></span>
+            {{message}}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+        {% block content %}
+        {% endblock %}
+
+        <!-- FOOTER -->
+        <footer>
+            <p>&copy; 2020 Ghostrr Company, Inc. &middot; <a href="#">Terms</a> &middot; <a href="#">Contact Us</a></p>
+            <a href="#" id="top"><i class="fas fa-angle-up"></i></a>
+        </footer>
+
+        <!-- Scripts -->
+        <script src="{% static 'js/all.js' %}"></script>
+        <script src="{% static 'js/main.js' %}"></script>
+    </body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<!-- Bootstrap core CSS -->
+<link href="/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name="google-signin-client_id" content="714612435854-8f940uf3tpesu6v2j3gq48og7i3rdcqj.apps.googleusercontent.com">
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<body class="text-center">
+<main class="mx-auto">
+  <main class="container">
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+      <h2 class="display-4">Pricing</h2>
+      <p class="lead">Quickly build an impactful copy for your potential customers. It’s as simple as clicking a button.</p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+      <div class="col">
+        <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 fw-normal">Free</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">$0 <small class="text-muted"></small></h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>10 blogs included</li>
+            <li>0.1 GB of storage</li>
+            <li>Email support</li>
+            <li>Help center access</li>
+          </ul>
+          <button type="button" class="w-100 w-100 btn btn-md btn-outline-secondary">Sign up for free</button>
+        </div>
+      </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 fw-normal">Pro</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">$25 <small class="text-muted"></small></h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>200 blogs included</li>
+            <li>1 GB of storage</li>
+            <li>Priority email support</li>
+            <li>Help center access</li>
+          </ul>
+          <button type="button" class="w-100 w-100 btn btn-md btn-secondary">Get started</button>
+        </div>
+      </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 fw-normal">Enterprise</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">$99 <small class="text-muted"></small></h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>1000 blogs included</li>
+            <li>5 GB of storage</li>
+            <li>Phone and email support</li>
+            <li>Help center access</li>
+          </ul>
+          <button type="button" class="w-100 w-100 btn btn-md btn-secondary">Contact us</button>
+        </div>
+      </div>
+      </div>
+    </div>
+</main>
+</body>
+<br> </br>
+
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+
+{% endblock %}
+</html>

@@ -1,0 +1,43 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div id='hero'>
+        {% include 'blog/navigation.html' %}
+        <div class="subsection">
+            <h1>Case Studies</h1>
+        </div>
+    </div>
+
+    <section class="two white">
+        <div class="divide">
+            <div class="text">
+                <h3>Wall Street Journal</h3>
+                <p>Breaking news with additional insights at any given moment – Director of Strategic Marketing Initiatives.</p>
+            </div>
+            <div class="img">
+                <img src="{% static 'images/digital-marketing-banner.svg' %}">
+            </div>
+        </div>
+        <div class="divide">
+            <div class="text">
+                <h3>Springer Nature</h3>
+                <p>Helping them enrich content on blog posts and a selection of journals – Content Marketing Director.</p>
+            </div>
+            <div class="img">
+                <img src="{% static 'images/digital_marketing.svg' %}">
+            </div>
+        </div>
+        <div class="divide">
+            <div class="text">
+                <h3>Paragon Group</h3>
+                <p>Largest privately owned company gaining SEO rankings through intelligent content creation – Chief Marketing Officer.</p>
+            </div>
+            <div class="img">
+                <img src="{% static 'images/affiliate.svg' %}">
+            </div>
+        </div>
+    </section>
+
+    
+{% endblock %}

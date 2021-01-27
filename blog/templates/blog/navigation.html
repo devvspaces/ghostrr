@@ -1,0 +1,24 @@
+{% load static %}
+<nav>
+    <a href="/" id='logo'>
+        <span><img src="{% static 'images/logo.jpg' %}"></span>
+        Ghostrr
+    </a>
+    <a href="#" id="toggle_nav"><i class="fas fa-bars"></i></a>
+    <ul id="navigation">
+        <li><a href="#" class="close_nav"><i class="fas fa-times"></i></a></li>
+        <li><a href="{% url 'index_page' %}">Home</a></li>
+        {% if not request.user.is_authenticated %}
+            <li><a href="#">Product</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'cases' %}">Case Studies</a></li>
+            <li><a href="{% url 'pricings' %}">Pricing</a></li>
+            <li><a href="{% url 'signin' %}">Login</a></li>
+            <li><a href="{% url 'register' %}">Create content now</a></li>
+        {% else %}
+            <li><a href="{% url 'about' %}">My blogs</a></li>
+            <li><a href="{% url 'about' %}">Create content</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% endif %}
+    </ul>
+</nav>

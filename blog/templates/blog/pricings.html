@@ -1,0 +1,60 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div id='hero'>
+        {% include 'blog/navigation.html' %}
+        <div class="subsection">
+            <h1>Pricing</h1>
+            <p>Quickly build an impactful copy for your potential customers. It’s as simple as clicking a button.</p>
+        </div>
+    </div>
+
+    <section class="pricing">
+        <div class="box">
+            <div class="head">
+                <p>Free</p>
+            </div>
+            <div class="content">
+                <p class="price">$0</p>
+                <ul>
+                    <li>10 blogs included</li>
+                    <li>0.1 GB of storage</li>
+                    <li>Email support</li>
+                    <li>Help center access</li>
+                </ul>
+                <a class="btn">Sign up for free</a>
+            </div>
+        </div>
+        <div class="box">
+            <div class="head">
+                <p>Pro</p>
+            </div>
+            <div class="content">
+                <p class="price">$25</p>
+                <ul>
+                    <li>200 blogs included</li>
+                    <li>1 GB of storage</li>
+                    <li>Priority email support</li>
+                    <li>Help center access</li>
+                </ul>
+                <a class="btn">Get started</a>
+            </div>
+        </div>
+        <div class="box">
+            <div class="head">
+                <p>Enterprise</p>
+            </div>
+            <div class="content">
+                <p class="price">$99</p>
+                <ul>
+                    <li>1000 blogs included</li>
+                    <li>5 GB of storage</li>
+                    <li>Phone and email support</li>
+                    <li>Help center access</li>
+                </ul>
+                <a class="btn">Contact us</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div id='hero'>
+        {% include 'blog/navigation.html' %}
+        <div class="main_hero">
+            <div class="content_text">
+                <h1>Say hello to the <span>Future of Copywriting!</span></h1>
+                <p>Enhance your content plan with automatic content creation in all languages.</p>
+                <a href="#" class="btn cta">Create Content Now &raquo;</a>
+            </div>
+            <div class="content_image">
+                <img src="{% static 'images/web-copywriting.svg' %}">
+            </div>
+        </div>
+    </div>
+
+    <section class="one">
+        <div class="supporters">
+            <h2>We are used by top companies</h2>
+            <div class="company">
+                <img src="{% static 'images/tesla.png' %}">
+                <img src="{% static 'images/vodafone.png' %}">
+                <img src="{% static 'images/harrods.png' %}">
+                <img src="{% static 'images/tesco.png' %}">
+            </div>
+        </div>
+        <div class="benefits">
+            <h2>The future of marketing is great content</h2>
+            <div class="lists">
+                <div class="box">
+                    <div class="head">
+                        <span class="val">1.2Bn</span>
+                        <h4 class="text">Volume of Content Generated</h4>
+                    </div>
+                    <div class="content">
+                        <span class="supporting_text">Stay ahead of the game.</span>
+                        <p>Customers love content. Join the movement and create unlimited, highly converting content today.</p>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="head">
+                        <span class="val">76%</span>
+                        <h4 class="text">Increase in Page Ranking</h4>
+                    </div>
+                    <div class="content">
+                        <span class="supporting_text">Outperform the market.</span>
+                        <p>AI optimised content to drive higher engagement and new visitor acquisition.</p>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="head">
+                        <span class="val">1.2Bn</span>
+                        <h4 class="text">Volume of Content Generated</h4>
+                    </div>
+                    <div class="content">
+                        <span class="supporting_text">Stay ahead of the game.</span>
+                        <p>Customers love content. Join the movement and create unlimited, highly converting content today.</p>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="head">
+                        <span class="val">1.2Bn</span>
+                        <h4 class="text">Volume of Content Generated</h4>
+                    </div>
+                    <div class="content">
+                        <span class="supporting_text">Stay ahead of the game.</span>
+                        <p>Customers love content. Join the movement and create unlimited, highly converting content today.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="two">
+        <h2>Organisations are revolutionizing their content production</h2>
+        <div class="divide">
+            <div class="text">
+                <h3>Digital Marketers</h3>
+                <p>Create unlimited highly performing copy in seconds.</p>
+                <p>Drive higher position on Google today.</p>
+            </div>
+            <div class="img">
+                <img src="{% static 'images/digital-marketing-banner.svg' %}">
+            </div>
+        </div>
+        <div class="divide">
+            <div class="text">
+                <h3>Content Creators</h3>
+                <p>Unlimited content creation without delay and costs.</p>
+                <p>Fresh engaging content every day to drive acquisition and engagement.</p>
+            </div>
+            <div class="img">
+                <img src="{% static 'images/digital_marketing.svg' %}">
+            </div>
+        </div>
+        <div class="divide">
+            <div class="text">
+                <h3>Affiliate Marketers</h3>
+                <p>Drive higher performing and repeatable content in seconds.</p>
+                <p>Drive more conversions and more revenue through acquisition and conversion.</p>
+            </div>
+            <div class="img">
+                <img src="{% static 'images/affiliate.svg' %}">
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div id='hero'>
+        {% include 'blog/navigation.html' %}
+        <!-- <div class="subsection">
+            <h1>Create awesome contents today!</h1>
+        </div> -->
+    </div>
+
+    <div class="auth_box">
+        <form method="POST">
+            {% csrf_token %}
+            <h3>Create awesome contents today!</h3>
+            <fieldset error='{% if form.username.errors %}True{% endif %}'>
+                <label>Username</label>
+                <input type="text" name='username' value="{% if form.username.value %}{{form.username.value}}{% endif %}">
+                <small>
+                    {% if form.username.errors %}
+                        {% for i in form.username.errors %}
+                        {{ i }}<br>
+                        {% endfor %}
+                    {% else %}
+                        {{form.username.help_text}}
+                    {% endif %}
+                </small>
+            </fieldset>
+            <fieldset error='{% if form.email.errors %}True{% endif %}'>
+                <label>Email</label>
+                <input type="email" name='email' value="{% if form.email.value %}{{form.email.value}}{% endif %}">
+                <small>
+                    {% if form.email.errors %}
+                        {% for i in form.email.errors %}
+                        {{ i }}<br>
+                        {% endfor %}
+                    {% else %}
+                        {{form.email.help_text}}
+                    {% endif %}
+                </small>
+            </fieldset>
+            <fieldset error='{% if form.password.errors %}True{% endif %}'>
+                <label>Password</label>
+                <input type="password" name='password' value="{% if form.password.value %}{{form.password.value}}{% endif %}">
+                <small>
+                    {% if form.password.errors %}
+                        {% for i in form.password.errors %}
+                        {{ i }}<br>
+                        {% endfor %}
+                    {% else %}
+                        {{form.password.help_text}}
+                    {% endif %}
+                </small>
+            </fieldset>
+            <button class="submit btn">Get started</button>
+            <a href="{% url 'signin' %}" class="btn">Sign in</a>
+        </form>
+    </div>
+{% endblock %}

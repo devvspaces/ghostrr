@@ -1,0 +1,62 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div id='hero'>
+        {% include 'blog/navigation.html' %}
+        <div class="subsection">
+            <h1>Ghostrr Content Hub</h1>
+        </div>
+    </div>
+
+    <section class="about">
+        <div class="text_side">
+            <div class="box">
+                <h4>AI first</h4>
+                <p>Billions of data points considered in real-time ensuring the best possible content, each time, every time.</p>
+            </div>
+            <div class="box">
+                <h4>Immediate Impact</h4>
+                <p>Create engaging and highly converting content immediately. Drive better outcomes for your audience.</p>
+            </div>
+            <div class="box">
+                <h4>Human Sounding</h4>
+                <p>No one likes robotic, monotonic engagement. With Ghostrr you are guaranteed awesome, engaging and personal content.</p>
+            </div>
+            <div class="box">
+                <h4>Unlimited Content Production</h4>
+                <p>Create, distribute, repeat. Ghostrr ensures you can build your content plan aligned to your content goals.</p>
+            </div>
+            <div class="box">
+                <h4>Global Applications</h4>
+                <p>Create in multiple languages, today. Create new audiences and engage existing audiences across the globe.</p>
+            </div>
+            <div class="box">
+                <h4>Value for Money</h4>
+                <p>Cost-effective content creation at your finger-tips.Create multiple copies to arrive at the best content.</p>
+            </div>
+        </div>
+        <div class="side_img">
+            <img src="{% static 'images/digital-marketing-banner.svg' %}">
+            <a class="btn" href="#">Create content now</a>
+        </div>
+    </section>
+
+    <section class="howitworks">
+        <h2>How it works</h2>
+        <div class="process">
+            <div class="box">
+                <span class="number">1</span>
+                <p>Input your content Idea</p>
+            </div>
+            <div class="box">
+                <span class="number">2</span>
+                <p>Select length of copy</p>
+            </div>
+        </div>
+        <div class="finish">
+            <h3>In seconds, Ghostrr creates highly performing content aligned to vision.</h3>
+            <a class="btn" href="#">Create content now</a>
+        </div>
+    </section>
+{% endblock %}
