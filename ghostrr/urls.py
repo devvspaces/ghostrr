@@ -22,6 +22,6 @@ urlpatterns = [
     path('accounts/',include('accounts.urls')),
     # add these
    path('api-auth/', include('rest_framework.urls')),
-   url(r'^oauth/', include('social_django.urls', namespace='social')),
+   path('oauth/', include('social_django.urls', namespace='social')),
    path('api-auth/', include('drf_social_oauth2.urls',namespace='drf')),#???? namespace='drf' is mandatory
 ]
