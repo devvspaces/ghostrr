@@ -1,5 +1,14 @@
-from django.shortcuts import render
-from django.views.generic import TemplateView
+import time
+
+from django.contrib import messages
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
+from django.views.generic import TemplateView, ListView, FormView
+from django.urls import reverse
+
+from .models import Blogs
+from .forms import CreateBlogForm
 
 # Create your views here.
 def home (request):
@@ -35,3 +44,169 @@ class AboutPage(TemplateView):
     extra_context = {
         'title': 'About us'
     }
+
+
+class HistoricalBlogs(ListView):
+    template_name = 'blog/blogs.html'
+    extra_context = {
+        'title': 'Historical Blogs'
+    }
+    model = Blogs
+    context_object_name = 'blogs'
+
+    def get_queryset(self, *args, **kwargs):
+        results = self.model.objects.filter(profile=self.request.user.profile)
+
+        return results
+
+    def get_context_data(self, *args, **kwargs):
+        context = self.extra_context
+
+        context[self.context_object_name] = self.get_queryset()
+
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+
+        return render(request, self.template_name, context)
+
+
+class CreateAndEdiBlogPage(FormView):
+    template_name = 'blog/edit.html'
+    extra_context = {
+        'title': 'Create Blog'
+    }
+    form_class = CreateBlogForm
+    
+    def get_context_data(self, *args, **kwargs):
+        context = self.extra_context
+
+        form = self.get_form_class()
+        context['form'] = form()
+
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+
+        return render(request, self.template_name, context)
+    
+    def post(self, *args, **kwargs):
+        request = self.request
+
+        if request.is_ajax():
+            # time.sleep(3)
+            # Inputing data in form to validate
+            form = self.get_form_class()
+            form = form(request.POST)
+
+            if form.is_valid():
+                # Check if user have enough credit to use the api
+                user_credit = request.user.profile.credit
+                if user_credit > 0:
+                    # Use api to generate text
+
+                    # Reduce user request on succefull call of api
+                    request.user.profile.credit = user_credit - 1
+                    request.user.profile.save()
+
+                    text = 'this is the default data'
+                    return JsonResponse({'text': text}, status=200)
+            
+            return JsonResponse({'errors': form.errors}, status=400)
+
+        form = self.get_form_class()
+        form = form(request.POST)
+
+        if form.is_valid():
+            blog = form.save()
+            
+            # Set the user profile
+            blog.profile = request.user.profile
+            blog.save()
+
+            messages.success(request, 'Your blog has been successfully created')
+            return redirect('blogs')
+        
+        context = self.get_context_data()
+        context['form'] = form
+
+        return render(request, self.template_name, context)
+
+
+class EdiBlogPage(FormView):
+    template_name = 'blog/edit.html'
+    extra_context = {
+        'title': 'Edit blog',
+        'update': '1'
+    }
+    form_class = CreateBlogForm
+    
+    def get_context_data(self, *args, **kwargs):
+        context = self.extra_context
+
+        # Get slug from request and get blog instance
+        slug = self.kwargs.get('slug')
+        blog = get_object_or_404(Blogs, slug=slug)
+
+        form = self.get_form_class()
+
+        default_post = self.request.POST.copy()
+        default_post['title'] = blog.title
+        default_post['sentence'] = blog.sentence
+        default_post['copy_length'] = blog.copy_length
+        default_post['copy_text'] = blog.copy_text
+
+        form = form(default_post)
+
+        context['form'] = form
+
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+
+        return render(request, self.template_name, context)
+    
+    def post(self, *args, **kwargs):
+        request = self.request
+
+        if request.is_ajax():
+            # time.sleep(3)
+            # Inputing data in form to validate
+            form = self.get_form_class()
+            form = form(request.POST)
+
+            if form.is_valid():
+                # Use api to generate text
+
+                text = 'this is the default data'
+                return JsonResponse({'text': text}, status=200)
+            
+            return JsonResponse({'errors': form.errors}, status=400)
+
+        form = self.get_form_class()
+        form = form(request.POST)
+
+        if form.is_valid():
+            updated_blog = form.save()
+
+            # Get slug from request and get blog instance
+            slug = self.kwargs.get('slug')
+            blog = get_object_or_404(Blogs, slug=slug)
+            
+            # Set the user profile
+            blog.title = updated_blog.title
+            blog.sentence = updated_blog.sentence
+            blog.copy_length = updated_blog.copy_length
+            blog.copy_text = updated_blog.copy_text
+            blog.save()
+            
+            messages.success(request, 'Your blog has been successfully updated')
+            return redirect(reverse('update_blog', kwargs={'slug': slug}))
+        
+        context = self.get_context_data()
+        context['form'] = form
+
+        return render(request, self.template_name, context)

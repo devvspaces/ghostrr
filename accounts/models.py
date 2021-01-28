@@ -91,10 +91,23 @@ class User(AbstractBaseUser):
         verbose_name = 'Ghostrr User'
 
 
+class Profile(models.Model):
+    LEVELS = (
+        ('1', 'Free'),
+        ('2', 'Pro'),
+        ('3', 'Enterprise'),
+    )
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    credit = models.IntegerField(default=0)
+    level = models.CharField(max_length=1, choices=LEVELS, default=1)
+
+    def __str__(self):
+        return self.user.username
+
+
 
 
 # @receiver(post_save, sender=User)
 # def create_profile(sender, instance, created, **kwargs):
 #     if created:
-#         username = get_usable_name(instance, Profile)
-#         pro=Profile.objects.create(username=username, userx=instance)
+#         pro=Profile.objects.create(username=username, user=instance)

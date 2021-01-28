@@ -1,11 +1,12 @@
 from django import forms
+from django.conf import settings
 from django.core.validators import validate_email
 from django.contrib.auth import password_validation
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import get_object_or_404
 
-from .models import User
+from .models import User, Profile
 
 
 class ForgetPasswordForm(forms.Form):
@@ -139,12 +140,25 @@ class UserRegisterForm(forms.ModelForm):
 		password_validation.validate_password(ps1,None)
 		return ps1
 	""" Override the default save method to use set_password method to convert text to hashed """
-	def save(self, commit=True):
+	def save(self, commit=True, level=1):
 		user=super(UserRegisterForm, self).save(commit=False)
 		user.set_password(self.cleaned_data.get("password"))
 		if commit:
 			user.active = True
+			
+			# creating profile instance for user
+			if (level > 3) or (level < 1):
+				raise form.ValidationError('Invalid level provided')
+			
+			try:
+				profile = Profile(user=user, level=str(level), credit=settings.CREDITS[level])
+			except IndexError:
+				profile = Profile(user=user, level=str(level), credit=0)
+
 			user.save()
+			profile.save()
+
+
 		return user
 
 class UserUpdateForm(forms.ModelForm):
@@ -157,3 +171,48 @@ class UserUpdateForm(forms.ModelForm):
 			# This is done here, rather than on the field, because the
 			# field does not have access to the initial value
 			return self.initial["password"]
+
+class UserUpdateFormPage(forms.Form):
+	email = forms.EmailField(help_text='Enter your email')
+	username = forms.CharField(help_text='Enter your username')
+	pk = forms.IntegerField()
+
+	def clean_email(self):
+		email = self.data.get('email')
+		pk = self.data.get('pk')
+		validate_email(email)
+
+		# Validate if the email has not been used before
+		exists = User.objects.filter(email=email).exclude(pk=pk).exists()
+		if exists:
+			raise forms.ValidationError('This email has already been used')
+
+		return email
+	
+	def clean_username(self):
+		username = self.data.get('username')
+		pk = self.data.get('pk')
+
+		# Validate if the username has not been used before
+		exists = User.objects.filter(username=username).exclude(pk=pk).exists()
+		if exists:
+			raise forms.ValidationError('This username has already been used')
+
+		return username
+	
+	def save(self, commit=True):
+		username = self.cleaned_data.get('username')
+		email = self.cleaned_data.get('email')
+		pk = self.cleaned_data.get('pk')
+
+		user = get_object_or_404(User, pk=pk)
+
+		# Setting new values
+		user.email = email
+		user.username = username
+
+		if commit:
+			user.save()
+		
+		return user
+		

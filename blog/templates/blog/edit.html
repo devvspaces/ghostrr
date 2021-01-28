@@ -1,0 +1,126 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div id='hero'>
+        {% include 'blog/navigation.html' %}
+    </div>
+
+    <div class="head_nav">
+        {% if update %}
+            <h2>Update your blog</h2>
+        {% else %}
+            <h2>Create a new blog</h2>
+        {% endif %}
+        
+        <a href="#" id="show_hint" class="btn">Hints</a>
+        <a href="#" class="btn" id="save_form">Save</a>
+        <a href="{% url 'blogs' %}" class="btn">Leave</a>
+        <a href="#" class="btn danger">Delete</a>
+        <!-- <a href="#" class="btn">Buy Credits</a> -->
+    </div>
+
+    <div class="blog_panel">
+        <div class="hint_section">
+            <span id="close_hint" class="btn">Close Hint</span>
+            <div class="box credit">
+                <h3>My Credits</h3>
+                <p id="credit_data">{{request.user.profile.credit}}</p>
+                <a class="btn" href="#">Buy more</a>
+            </div>
+            <div class="hints box">
+                <h3>Useful Hints</h3>
+                <ul>
+                    <li>
+                        <span><i class="fas fa-newspaper"></i></span>
+                        <p>Lorem dolore velit sed possimus, itaque quibusdam asperiores excepturi quia ducimus alias debitis ea! Repudiandae porro totam nostrum quae perferendis.
+                        </p>
+                    </li>
+                    <li>
+                        <span><i class="fas fa-newspaper"></i></span>
+                        <p>Lorem dolore velit sed possimus, itaque quibusdam asperiores excepturi quia ducimus alias debitis ea! Repudiandae porro totam nostrum quae perferendis.
+                        </p>
+                    </li>
+                    <li>
+                        <span><i class="fas fa-newspaper"></i></span>
+                        <p>Lorem ipsore velit sed possimus, itaque quibusdam asperiores excepturi quia ducimus alias debitis ea! Repudiandae porro totam nostrum quae perferendis.
+                        </p>
+                    </li>
+                    <li>
+                        <span><i class="fas fa-newspaper"></i></span>
+                        <p>Lorem ipsure velit sed possimus, itaque quibusdam asperiores excepturi quia ducimus alias debitis ea! Repudiandae porro totam nostrum quae perferendis.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="edit_section">
+            <form id='total_copy' method="POST">
+                {% csrf_token %}
+                <input type="text" id="title_form" name='title'>
+                <input type="text" id="sentence_form" name='sentence'>
+                <input type="number" id="copy_length_form" name='copy_length'>
+                <input type="text" id="copy_text_form" name='copy_text'>
+            </form>
+            <form id="first_form">
+                <fieldset id="title" error='{% if form.title.errors %}True{% endif %}'>
+                    <label>Blog title</label>
+                    <input type="text" name='title' value="{% if form.title.value %}{{form.title.value}}{% endif %}">
+                    <small>
+                        {% if form.title.errors %}
+                            {% for i in form.title.errors %}
+                            {{ i }}<br>
+                            {% endfor %}
+                        {% else %}
+                            {{form.title.help_text}}
+                        {% endif %}
+                    </small>
+                </fieldset>
+                <fieldset id="sentence" error='{% if form.sentence.errors %}True{% endif %}'>
+                    <label>Sentence</label>
+                    <textarea name="sentence">{% if form.sentence.value %}{{form.sentence.value}}{% endif %}</textarea>
+                    <small>
+                        {% if form.sentence.errors %}
+                            {% for i in form.sentence.errors %}
+                            {{ i }}<br>
+                            {% endfor %}
+                        {% else %}
+                            {{form.sentence.help_text}}
+                        {% endif %}
+                    </small>
+                </fieldset>
+                <fieldset id="copy_length" error='{% if form.copy_length.errors %}True{% endif %}'>
+                    <label>Length of copy</label>
+                    <input type="number" name='copy_length' value="{% if form.copy_length.value %}{{form.copy_length.value}}{% endif %}">
+                    <small>
+                        {% if form.copy_length.errors %}
+                            {% for i in form.copy_length.errors %}
+                            {{ i }}<br>
+                            {% endfor %}
+                        {% else %}
+                            {{form.copy_length.help_text}}
+                        {% endif %}
+                    </small>
+                </fieldset>
+                <a href="#" class="btn" id="generate_text">Generate Content</a>
+                <div class="copy_area">
+                    <div class="text_head">
+                        <label>Content</label>
+                        <a href="#" class="btn" id="copy_addy">Copy Content</a>
+                    </div>
+                    <p contenteditable="true" class="text_content">{% if form.copy_text.value %}{{form.copy_text.value}}{% endif %}</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="loading">
+        <div class="container">
+            <div class="circle"></div>
+            <h3>Generating Content ...</h3>
+        </div>
+    </div>
+
+    
+
+{% endblock %}

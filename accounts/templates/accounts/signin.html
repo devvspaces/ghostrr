@@ -29,19 +29,23 @@
             <fieldset error='{% if form.password.errors %}True{% endif %}'>
                 <label>Password</label>
                 <input type="password" name='password' value="{% if form.password.value %}{{form.password.value}}{% endif %}">
-                <small>
-                    {% if form.password.errors %}
-                        {% for i in form.password.errors %}
-                        {{ i }}<br>
-                        {% endfor %}
-                    {% else %}
-                        {{form.password.help_text}}
-                    {% endif %}
-                </small>
+                <div class="smallie">
+                    <small>
+                        {% if form.password.errors %}
+                            {% for i in form.password.errors %}
+                            {{ i }}<br>
+                            {% endfor %}
+                        {% else %}
+                            {{form.password.help_text}}
+                        {% endif %}
+                    </small>
+                    <a href="#" class="forget">Forget password?</a>
+                </div>
+                
             </fieldset>
             <button class="submit btn">Login</button>
             <a href="{% url 'register' %}" class="btn">Get Started</a>
-            <a href="#" class="forget">Forget password?</a>
+            
             <p class="or"><strong>OR</strong></p>
             <!-- <a href="{% url 'social:begin' 'github' %}" class="btn">Login with GitHub</a> -->
             <a href="{% url 'social:begin' 'facebook' %}" class="btn">Login with Facebook</a>

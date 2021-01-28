@@ -171,3 +171,8 @@ STATIC_URL = '/static/'
 LOGIN_URL = 'signin'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'index_page'
+
+
+# LEvels credits
+
+CREDITS = (10, 200)

@@ -16,8 +16,9 @@
             <li><a href="{% url 'signin' %}">Login</a></li>
             <li><a href="{% url 'register' %}">Create content now</a></li>
         {% else %}
-            <li><a href="{% url 'about' %}">My blogs</a></li>
-            <li><a href="{% url 'about' %}">Create content</a></li>
+            <li><a href="{% url 'account' %}">Account</a></li>
+            <li><a href="{% url 'blogs' %}">Blogs</a></li>
+            <li><a href="{% url 'create_blog' %}">Create content</a></li>
             <li><a href="{% url 'logout' %}">Logout</a></li>
         {% endif %}
     </ul>
