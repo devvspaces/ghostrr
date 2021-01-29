@@ -214,6 +214,7 @@ nav{
 #navigation li a{
     font-size: .8rem;
     color: var(--darkteal);
+    font-weight: bold;
 }
 
 
@@ -303,7 +304,7 @@ section.one .benefits .lists .box .content p{
 section.two {
     padding: 3rem 1rem;
     /* background: url('../images/b3bNN7x.png'); */
-    background-color: var(--teal2);
+    background-color: var(--teal);
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
@@ -341,7 +342,7 @@ section.two .divide .text h3{
 section.two .divide .text p{
     line-height: 1.5rem;
     font-size: 1rem;
-    color: #fff;
+    color: var(--darkteal);
 }
 section.two.white .divide .text p{
     color: var(--teal2);
@@ -1043,7 +1044,7 @@ footer a{
         position: fixed;
         top: 0;
         left: 0;
-        background-color: var(--teal);
+        background-color: var(--teal2);
         flex-direction: column;
         width: 300px;
         min-height: 100%;
@@ -1081,7 +1082,7 @@ footer a{
         font-size: 1.3rem;
         width: 35px;
         height: 35px;
-        background: var(--teal);
+        background: var(--teal2);
         border-radius: 3px;
         color: #fff;
     }
