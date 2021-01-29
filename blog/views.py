@@ -10,20 +10,21 @@ from django.views.generic import TemplateView, ListView, FormView
 from django.urls import reverse
 
 from .models import Blogs
-from .forms import CreateBlogForm
+from .forms import CreateBlogForm, EditLimitForm
+from .utils import call_gpt, get_limit_for_level
 
 # Create your views here.
-def home (request):
-    return render (request,'blog/home.html')
+# def home (request):
+#     return render (request,'blog/home.html')
 
-def about (request):
-    return render (request,'blog/about.html')
+# def about (request):
+#     return render (request,'blog/about.html')
 
-def cases (request):
-    return render (request,'blog/cases.html')
+# def cases (request):
+#     return render (request,'blog/cases.html')
 
-def pricing (request):
-    return render (request,'blog/pricing.html')
+# def pricing (request):
+#     return render (request,'blog/pricing.html')
 
 
 class IndexPage(TemplateView):
@@ -135,8 +136,12 @@ class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
         if request.is_ajax():
             # time.sleep(3)
             # Inputing data in form to validate
+            # Copyin request.POST
+            default_post = request.POST.copy()
+            default_post['pk'] = request.user.pk
+
             form = self.get_form_class()
-            form = form(request.POST)
+            form = form(default_post)
 
             if form.is_valid():
                 # Check if user have enough credit to use the api
@@ -151,13 +156,16 @@ class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
 
                 if user_credit > 0:
                     # Use api to generate text
+                    sentence = form.cleaned_data.get('sentence')
+                    copy_length = form.cleaned_data.get('copy_length')
+                    response_data = call_gpt(sentence, copy_length)
+                    texts = response_data['choices'][0]['text']
 
                     # Reduce user request on succefull call of api
                     request.user.profile.credit = user_credit - 1
                     request.user.profile.save()
 
-                    text = 'this is the default data'
-                    data_return['text'] = text
+                    data_return['text'] = texts
                     
                     return JsonResponse(data_return, status=200)
                 else:
@@ -167,8 +175,11 @@ class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
             
             return JsonResponse({'errors': form.errors}, status=400)
 
+        
         form = self.get_form_class()
-        form = form(request.POST)
+        default_post = request.POST.copy()
+        default_post['pk'] = request.user.pk
+        form = form(default_post)
 
         if form.is_valid():
             blog = form.save()
@@ -220,6 +231,7 @@ class EdiBlogPage(LoginRequiredMixin, UserPassesTestMixin, FormView):
         default_post['sentence'] = blog.sentence
         default_post['copy_length'] = blog.copy_length
         default_post['copy_text'] = blog.copy_text
+        default_post['pk'] = self.request.user.pk
 
         form = form(default_post)
 
@@ -239,8 +251,11 @@ class EdiBlogPage(LoginRequiredMixin, UserPassesTestMixin, FormView):
         if request.is_ajax():
             # time.sleep(3)
             # Inputing data in form to validate
+            default_post = request.POST.copy()
+            default_post['pk'] = request.user.pk
+
             form = self.get_form_class()
-            form = form(request.POST)
+            form = form(default_post)
 
             if form.is_valid():
                 # Check if user have enough credit to use the api
@@ -255,13 +270,14 @@ class EdiBlogPage(LoginRequiredMixin, UserPassesTestMixin, FormView):
 
                 if user_credit > 0:
                     # Use api to generate text
+                    response_data = call_gpt(form.cleaned_data.get('sentence'))
+                    texts = response_data['choices'][0]['text']
 
                     # Reduce user request on succefull call of api
                     request.user.profile.credit = user_credit - 1
                     request.user.profile.save()
 
-                    text = 'this is the default data'
-                    data_return['text'] = text
+                    data_return['text'] = texts
                     
                     return JsonResponse(data_return, status=200)
                 else:
@@ -273,7 +289,9 @@ class EdiBlogPage(LoginRequiredMixin, UserPassesTestMixin, FormView):
 
 
         form = self.get_form_class()
-        form = form(request.POST)
+        default_post = request.POST.copy()
+        default_post['pk'] = request.user.pk
+        form = form(default_post)
 
         if form.is_valid():
             updated_blog = form.save()
@@ -324,3 +342,52 @@ class DeleteBlog(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         
         messages.success(request, 'Your blog has been successfully deleted')
         return redirect('blogs')
+
+
+class EditLimitPage(LoginRequiredMixin, UserPassesTestMixin, FormView):
+    template_name = 'blog/edit_limit.html'
+    extra_context = {
+        'title': 'Edit Limit',
+    }
+    form_class = EditLimitForm
+
+    def test_func(self, *args, **kwargs):
+        user = self.request.user
+
+        if user.is_staff:
+            return True
+        return False
+
+    def get_context_data(self, *args, **kwargs):
+        context = self.extra_context
+        form = self.get_form_class()
+        default_post = self.request.POST.copy()
+        default_post['free_limit'] = get_limit_for_level('1')
+        default_post['pro_limit'] = get_limit_for_level('2')
+        default_post['enterprise_limit'] = get_limit_for_level('3')
+
+        context['form'] = form(default_post)
+
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+
+        return render(request, self.template_name, context)
+    
+    def post(self, *args, **kwargs):
+        request = self.request
+
+        form = self.get_form_class()
+        form = form(request.POST)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'You have successfully user limits')
+            return redirect('edit_limit')
+        
+        
+        context = self.get_context_data()
+        context['form'] = form
+
+        return render(request, self.template_name, context)

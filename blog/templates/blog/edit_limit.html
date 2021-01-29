@@ -1,0 +1,55 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div id='hero'>
+        {% include 'blog/navigation.html' %}
+    </div>
+
+    <div class="auth_box">
+        <form method="POST">
+            {% csrf_token %}
+            <h3>User Limits</h3>
+            <fieldset error='{% if form.free_limit.errors %}True{% endif %}'>
+                <label>Free Limit</label>
+                <input type="number" name='free_limit' value="{% if form.free_limit.value %}{{form.free_limit.value}}{% endif %}">
+                <small>
+                    {% if form.free_limit.errors %}
+                        {% for i in form.free_limit.errors %}
+                        {{ i }}<br>
+                        {% endfor %}
+                    {% else %}
+                        {{form.free_limit.help_text}}
+                    {% endif %}
+                </small>
+            </fieldset>
+            <fieldset error='{% if form.pro_limit.errors %}True{% endif %}'>
+                <label>Pro Limit</label>
+                <input type="number" name='pro_limit' value="{% if form.pro_limit.value %}{{form.pro_limit.value}}{% endif %}">
+                <small>
+                    {% if form.pro_limit.errors %}
+                        {% for i in form.pro_limit.errors %}
+                        {{ i }}<br>
+                        {% endfor %}
+                    {% else %}
+                        {{form.pro_limit.help_text}}
+                    {% endif %}
+                </small>
+            </fieldset>
+            <fieldset error='{% if form.enterprise_limit.errors %}True{% endif %}'>
+                <label>Enterprise Limit</label>
+                <input type="number" name='enterprise_limit' value="{% if form.enterprise_limit.value %}{{form.enterprise_limit.value}}{% endif %}">
+                <small>
+                    {% if form.enterprise_limit.errors %}
+                        {% for i in form.enterprise_limit.errors %}
+                        {{ i }}<br>
+                        {% endfor %}
+                    {% else %}
+                        {{form.enterprise_limit.help_text}}
+                    {% endif %}
+                </small>
+            </fieldset>
+            <button class="submit btn">Update</button>
+        </form>
+    </div>
+{% endblock %}

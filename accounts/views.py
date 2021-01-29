@@ -147,6 +147,11 @@ class LoginPage(FormView):
         return context
 
     def get(self, request, *args, **kwargs):
+        # Redirect to create blogs is user is logged in
+        if request.user.is_authenticated:
+            messages.success(request, 'Logout first')
+            return redirect('account')
+            
         context = self.get_context_data()
 
         return render(request, self.template_name, context)
@@ -189,6 +194,10 @@ class RegisterPage(FormView):
         return context
 
     def get(self, request, *args, **kwargs):
+        # Redirect to create blogs is user is logged in
+        if request.user.is_authenticated:
+            return redirect('create_blog')
+
         context = self.get_context_data()
 
         return render(request, self.template_name, context)
