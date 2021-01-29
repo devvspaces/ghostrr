@@ -115,30 +115,6 @@ try{
 	    }
 	});
 } catch(e){
-	console.log(e)
-}
-
-// Code that gets data when generate is clicked on in the create blog page
-let buyBitcoin = $('.buyBitcoin')
-
-try{
-	buyBitcoin.click(function(event){
-		event.preventDefault()
-		let sellbox_pk = event.target.parentElement.querySelector('.seller_pk').innerText
-		let btc_amount_data = event.target.parentElement.parentElement.querySelector('.btc_amount_data').innerText
-		// Create a string in serializable format and send with ajax
-		let btcData = 'sellbox_pk='+sellbox_pk+'&btc_amount='+btc_amount_data
-	    let thisURL = window.location.href // or set your own url
-	    $.ajax({
-	        method: "POST",
-	        url: thisURL,
-	        data: btcData,
-	        success: handleRedirect,
-	        error: handleFormError,
-	    })
-	})
-} catch(e){
-	console.log(e)
 }
 
 
@@ -194,7 +170,6 @@ try{
         first_form.submit()
 	})
 } catch(e){
-	console.log(e)
 }
 
 try{
@@ -202,7 +177,6 @@ try{
         total_copy.submit()
 	})
 } catch(e){
-	console.log(e)
 }
 
 function handleFormSuccess(data, textStatus, jqXHR){
@@ -210,11 +184,29 @@ function handleFormSuccess(data, textStatus, jqXHR){
     // console.log(textStatus)
     // console.log(jqXHR)
     let text = data['text']
-    text_content.innerText = text
 
-    // Redude user credits
-    credit_data.innerText = parseInt(credit_data.innerText)-1
+    // Check if text == 0
+    if(text==0){
+        alert('You have no more credits, buy more credits to generate more contents')
+    } else {
+        text_content.innerText = text
+
+        // Redude user credits
+        credit_data.innerText = parseInt(credit_data.innerText)-1
+    }
+
+    
     loading.classList.remove('active')
+
+    // Remove all erros in form
+    title.removeAttribute('error')
+    sentence.removeAttribute('error')
+    copy_length.removeAttribute('error')
+
+    // Setting all info in forms back to normal value
+    title.lastElementChild.innerHTML = data['title']
+    sentence.lastElementChild.innerHTML = data['sentence']
+    copy_length.lastElementChild.innerHTML = data['copy_length']
 }
 let nons = 0
 function handleFormError(jqXHR, textStatus){
@@ -228,7 +220,11 @@ function handleFormError(jqXHR, textStatus){
             title_text = title_text + i +'<br>'
         })
         title.lastElementChild.innerHTML = title_text
-        title.children[1].style.borderColor = 'red'
+        title.setAttribute('error','True')
+    } else {
+        // Removing error and error text
+        title.removeAttribute('error')
+        title.lastElementChild.innerHTML = 'Enter the title you want for this blog here'
     }
     if (sentence_err && sentence_err.length > 0){
         let title_text = ''
@@ -236,7 +232,10 @@ function handleFormError(jqXHR, textStatus){
             title_text = title_text + i +'<br>'
         })
         sentence.lastElementChild.innerHTML = title_text
-        sentence.children[1].style.borderColor = 'red'
+        sentence.setAttribute('error','True')
+    } else{
+        sentence.removeAttribute('error')
+        sentence.lastElementChild.innerHTML = 'Describe the blog you want to generate here'
     }
     if (copy_length_err && copy_length_err.length > 0){
         let title_text = ''
@@ -244,7 +243,10 @@ function handleFormError(jqXHR, textStatus){
             title_text = title_text + i +'<br>'
         })
         copy_length.lastElementChild.innerHTML = title_text
-        copy_length.children[1].style.borderColor = 'red'
+        copy_length.setAttribute('error','True')
+    } else {
+        copy_length.removeAttribute('error')
+        copy_length.lastElementChild.innerHTML = 'Enter the length of copy you want'
     }
     // console.log(textStatus)
     loading.classList.remove('active')
@@ -271,5 +273,45 @@ try{
 		copyToClipBoard(addy.innerText)
 		this.innerText = 'Copied content'	}
 } catch (e){
-	console.log(e)
+}
+
+
+// Code to show delete modal in blog section
+let delete_btn = document.querySelectorAll('.delete_btn')
+let modal = document.querySelector('.modal')
+let close_delete = document.querySelectorAll('.close_delete')
+delete_btn.forEach(i=>{
+    i.onclick = function(event){
+        event.preventDefault()
+
+        // Get link element on modal with class danger
+        let delete_el = modal.querySelector('.danger')
+        delete_el.href = this.getAttribute('deleteLink')
+        
+        modal.classList.add('active')
+    }
+})
+modal.onclick = function (event) {
+    if(event.target == modal){
+        modal.classList.remove('active')
+    }
+}
+close_delete.forEach(i=>{
+    i.onclick = function(event){
+        event.preventDefault()
+        modal.classList.remove('active')
+    }
+})
+
+
+// Code to delete a blog in edit mode
+let delete_blog_in_edit = document.querySelector('#delete_blog_in_edit')
+delete_blog_in_edit.onclick = function(event){
+    event.preventDefault()
+
+    // Get link element on modal with class danger
+    let delete_el = modal.querySelector('.danger')
+    delete_el.href = this.getAttribute('deleteLink')
+    
+    modal.classList.add('active')
 }

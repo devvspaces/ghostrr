@@ -1,7 +1,9 @@
 import time
 
 from django.contrib import messages
-
+from django.core.paginator import Paginator
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.views.generic import TemplateView, ListView, FormView
@@ -46,13 +48,14 @@ class AboutPage(TemplateView):
     }
 
 
-class HistoricalBlogs(ListView):
+class HistoricalBlogs(LoginRequiredMixin, ListView):
     template_name = 'blog/blogs.html'
     extra_context = {
         'title': 'Historical Blogs'
     }
     model = Blogs
     context_object_name = 'blogs'
+    paginate_by = 4
 
     def get_queryset(self, *args, **kwargs):
         results = self.model.objects.filter(profile=self.request.user.profile)
@@ -62,17 +65,51 @@ class HistoricalBlogs(ListView):
     def get_context_data(self, *args, **kwargs):
         context = self.extra_context
 
-        context[self.context_object_name] = self.get_queryset()
+        # Get the data for blogs
+        data = self.get_queryset()
+        data_count = data.count()
+
+        # Get the page num query
+        page_num = self.request.GET.get('page')
+
+        # if page num is not there default page_num variable to one to use for paginator
+        if not page_num:
+            page_num = 1
+        page_obj = Paginator(data, self.paginate_by)
+        current_data = page_obj.page(page_num)
+        context['page_obj'] = current_data
+        context['total_blogs'] = data.count()
+        if data_count > 1:
+            context['blog_plural_or_not'] = 'blogs'
+        elif data_count == 1:
+            context['blog_plural_or_not'] = 'blog'
+
+        context[self.context_object_name] = current_data
 
         return context
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data()
 
+        # Get the search query
+        search_query = self.request.GET.get('search')
+
+        # If search query is available we want to filter queryset results
+        if search_query:
+            data = self.get_queryset().filter(title__contains = search_query)
+            data_count = data.count()
+            context[self.context_object_name] = data
+            context['page_obj'] = 0
+            context['total_blogs'] = data_count
+            if data_count > 1:
+                context['blog_plural_or_not'] = 'blogs'
+            elif data_count == 1:
+                context['blog_plural_or_not'] = 'blog'
+
         return render(request, self.template_name, context)
 
 
-class CreateAndEdiBlogPage(FormView):
+class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
     template_name = 'blog/edit.html'
     extra_context = {
         'title': 'Create Blog'
@@ -104,6 +141,14 @@ class CreateAndEdiBlogPage(FormView):
             if form.is_valid():
                 # Check if user have enough credit to use the api
                 user_credit = request.user.profile.credit
+
+                # Set returning data
+                data_return = {
+                    'title': 'Enter the title you want for this blog here',
+                    'sentence': 'Describe the blog you want to generate here',
+                    'copy_length': 'Enter the length of copy you want',
+                }
+
                 if user_credit > 0:
                     # Use api to generate text
 
@@ -112,7 +157,13 @@ class CreateAndEdiBlogPage(FormView):
                     request.user.profile.save()
 
                     text = 'this is the default data'
-                    return JsonResponse({'text': text}, status=200)
+                    data_return['text'] = text
+                    
+                    return JsonResponse(data_return, status=200)
+                else:
+                    # Setting text to zero tells the browser that this user has no more credits
+                    data_return['text'] = 0
+                    return JsonResponse(data_return, status=200)
             
             return JsonResponse({'errors': form.errors}, status=400)
 
@@ -135,13 +186,25 @@ class CreateAndEdiBlogPage(FormView):
         return render(request, self.template_name, context)
 
 
-class EdiBlogPage(FormView):
+class EdiBlogPage(LoginRequiredMixin, UserPassesTestMixin, FormView):
     template_name = 'blog/edit.html'
     extra_context = {
         'title': 'Edit blog',
         'update': '1'
     }
     form_class = CreateBlogForm
+
+    def test_func(self, *args, **kwargs):
+        user = self.request.user
+
+        # Get slug from request and get blog instance
+        slug = self.kwargs.get('slug')
+        blog = get_object_or_404(Blogs, slug=slug)
+
+        if user == blog.profile.user:
+            return True
+        return False
+        
     
     def get_context_data(self, *args, **kwargs):
         context = self.extra_context
@@ -161,6 +224,7 @@ class EdiBlogPage(FormView):
         form = form(default_post)
 
         context['form'] = form
+        context['blog'] = blog
 
         return context
 
@@ -179,12 +243,34 @@ class EdiBlogPage(FormView):
             form = form(request.POST)
 
             if form.is_valid():
-                # Use api to generate text
+                # Check if user have enough credit to use the api
+                user_credit = request.user.profile.credit
 
-                text = 'this is the default data'
-                return JsonResponse({'text': text}, status=200)
+                # Set returning data
+                data_return = {
+                    'title': 'Enter the title you want for this blog here',
+                    'sentence': 'Describe the blog you want to generate here',
+                    'copy_length': 'Enter the length of copy you want',
+                }
+
+                if user_credit > 0:
+                    # Use api to generate text
+
+                    # Reduce user request on succefull call of api
+                    request.user.profile.credit = user_credit - 1
+                    request.user.profile.save()
+
+                    text = 'this is the default data'
+                    data_return['text'] = text
+                    
+                    return JsonResponse(data_return, status=200)
+                else:
+                    # Setting text to zero tells the browser that this user has no more credits
+                    data_return['text'] = 0
+                    return JsonResponse(data_return, status=200)
             
             return JsonResponse({'errors': form.errors}, status=400)
+
 
         form = self.get_form_class()
         form = form(request.POST)
@@ -210,3 +296,31 @@ class EdiBlogPage(FormView):
         context['form'] = form
 
         return render(request, self.template_name, context)
+
+
+class DeleteBlog(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+    template_name = 'blog/blogs.html'
+    extra_context = {
+        'title': 'Delete blog'
+    }
+
+    def test_func(self, *args, **kwargs):
+        user = self.request.user
+
+        # Get slug from request and get blog instance
+        slug = self.kwargs.get('slug')
+        blog = get_object_or_404(Blogs, slug=slug)
+
+        if user == blog.profile.user:
+            return True
+        return False
+
+    def get(self, request, *args, **kwargs):
+        # Get slug from request and get blog instance
+        slug = self.kwargs.get('slug')
+        blog = get_object_or_404(Blogs, slug=slug)
+
+        blog.delete()
+        
+        messages.success(request, 'Your blog has been successfully deleted')
+        return redirect('blogs')

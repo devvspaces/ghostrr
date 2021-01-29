@@ -39,7 +39,7 @@
                             {{form.password.help_text}}
                         {% endif %}
                     </small>
-                    <a href="#" class="forget">Forget password?</a>
+                    <a href="{% url 'password_reset' %}" class="forget">Forgot Password?</a>
                 </div>
                 
             </fieldset>
@@ -48,7 +48,7 @@
             
             <p class="or"><strong>OR</strong></p>
             <!-- <a href="{% url 'social:begin' 'github' %}" class="btn">Login with GitHub</a> -->
-            <a href="{% url 'social:begin' 'facebook' %}" class="btn">Login with Facebook</a>
+            <!-- <a href="{% url 'social:begin' 'facebook' %}" class="btn">Login with Facebook</a> -->
         </form>
     </div>
 {% endblock %}

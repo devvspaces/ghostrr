@@ -12,4 +12,5 @@ urlpatterns = [
     path('blogs/', HistoricalBlogs.as_view(), name='blogs'),
     path('blogs/create_blog/', CreateAndEdiBlogPage.as_view(), name='create_blog'),
     path('blogs/update/<str:slug>/', EdiBlogPage.as_view(), name='update_blog'),
+    path('blogs/delete/<str:slug>/', DeleteBlog.as_view(), name='delete_blog'),
 ]

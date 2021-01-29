@@ -9,7 +9,7 @@ class Blogs(models.Model):
     profile = models.ForeignKey('accounts.Profile', on_delete=models.CASCADE)
     title = models.CharField(max_length=225)
     sentence = models.CharField(max_length=500)
-    copy_length = models.IntegerField()
+    copy_length = models.IntegerField(default=0)
     copy_text = models.TextField()
     slug = models.SlugField()
 

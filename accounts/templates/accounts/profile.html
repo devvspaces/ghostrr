@@ -44,7 +44,7 @@
                         </small>
                     </fieldset>
                     <button class="submit btn">Update</button>
-                    <a class="change_password" href="#">Change Password</a>
+                    <a class="change_password" href="{% url 'change_password' %}">Change Password</a>
                 </form>
             </div>
             
@@ -56,7 +56,7 @@
             </div>
             <div class="box">
                 <h4>Total Blogs</h4>
-                <p>23</p>
+                <p>{{request.user.profile.blogs_set.count}}</p>
             </div>
             <!-- <div class="box">
                 <h4>Credits</h4>

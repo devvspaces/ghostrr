@@ -12,20 +12,20 @@
         <a href="#" class="btn">Buy Credits</a>
     </div>
 
-    <h2 class="result">Results {% if blogs.count > 0 %}({{blogs.count}} blogs){% endif %}</h2>
+    <h2 class="result">Results {% if total_blogs > 0 %}({{total_blogs}} {{blog_plural_or_not}}){% endif %}</h2>
     <form id="search">
-        <input type="text" name="search" placeholder="Search for blogs ...">
+        <input type="text" name="search" placeholder="Search blogs with title ...">
         <button><i class="fas fa-search"></i></button>
     </form>
 
     <div class="listings">
-        {% if blogs.count > 0 %}
+        {% if blogs %}
             {% for blog in blogs %}
                 <div class="list_box">
                     <p>{{blog.title}}</p>
                     <div class="actions">
                         <a class="btn" href="{% url 'update_blog' slug=blog.slug %}">Edit</a>
-                        <a class="btn danger" href="#">Delete</a>
+                        <a class="btn danger delete_btn" href="#" deleteLink="{% url 'delete_blog' slug=blog.slug %}">Delete</a>
                     </div>
                 </div>
             {% endfor %}
@@ -35,13 +35,39 @@
     </div>
 
     <div class="pagination">
-        <a href="#" class="btn">First</a>
-        <a href="#" class="btn">Next</a>
-        <a href="#" class="btn">1</a>
-        <a href="#" class="btn active">2</a>
-        <a href="#" class="btn">3</a>
-        <a href="#" class="btn">Prev</a>
-        <a href="#" class="btn">Last</a>
+        {% if page_obj.has_previous %}
+            <a href="?page=1" class="btn">First</a>
+            <a href="?page={{page_obj.previous_page_number}}" class="btn">Previous</a>
+        {% endif%}
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <a href="?page={{ num }}" class="btn active">{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}" class="btn">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="btn">Last</a>
+        {% endif%}
+    </div>
+
+    <div class="modal">
+        <div class="modal_dialog">
+            <div class="modal_content">
+                <div class="head">
+                    <h3>Delete blog</h3>
+                </div>
+                <div class="body">
+                    <p>Are you sure you want to delete this blog?</p>
+                </div>
+                <div class="actions">
+                    <a class="btn close_delete" href="#">No</a>
+                    <a class="btn danger" href="#">Yes, Delete blog</a>
+                </div>
+            </div>
+
+        </div>
     </div>
 
    

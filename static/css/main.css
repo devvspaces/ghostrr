@@ -619,6 +619,9 @@ footer{
     text-align: center;
     line-height: 1.5rem;
 }
+footer p{
+    margin: 0 auto;
+}
 footer a{
     color: var(--darkteal);
     font-weight: bold;
@@ -658,9 +661,9 @@ footer a{
 }
 .head_nav .btn{
     background: var(--teal);
-    color: #fff;
+    color: var(--darkteal);
     margin: .3rem .5rem;
-    font-weight: normal;
+    font-weight: bold;
 }
 .head_nav .btn:hover{
     background: var(--darkteal);
@@ -745,9 +748,12 @@ footer a{
 .h2h{
     font-size: 2rem;
     margin: 1rem 0;
+    color: var(--darkteal);
+    padding: 1rem;
+    text-align: center;
 }
 .result{
-    color: var(--teal4);
+    color: var(--teal2);
     padding: .5rem 1rem;
     margin-top: 2rem;
 }
@@ -799,13 +805,16 @@ footer a{
     border-radius: 2rem;
     border-color: var(--teal);
 }
+#search input:focus{
+    border-color: var(--teal2);
+}
 #search button{
     display: flex;
     justify-content: center;
     align-items: center;
     min-width: 40px;
     min-height: 40px;
-    background-color: var(--teal);
+    background-color: var(--teal2);
     color: #fff;
     border-radius: 50%;
     border: none;
@@ -855,7 +864,7 @@ footer a{
     min-width: 250px;
 }
 .blog_panel .hint_section .box{
-    background-color: var(--teal2);
+    background-color: var(--teal);
     padding: 8px 10px;
     border-radius: 5px;
     margin-bottom: 1.5rem;
@@ -870,6 +879,13 @@ footer a{
 }
 .blog_panel .hint_section .box.credit .btn{
     font-size: 1rem;
+    background: var(--teal2);
+    color: #fff;
+    font-weight: bold;
+    margin: 1rem 0;
+}
+.blog_panel .hint_section .box.credit .btn:hover{
+    background: var(--darkteal);
 }
 .blog_panel .hint_section .box.hints ul{
     list-style: none;
@@ -905,6 +921,7 @@ footer a{
 .copy_area p.text_content{
     width: 100%;
     border: none;
+    min-height: 300px;
     height: auto;
     background: transparent;
     outline: none;
@@ -919,10 +936,13 @@ footer a{
     justify-content: space-between;
 }
 .text_head .btn{
-    background-color: var(--teal);
+    background-color: var(--teal2);
     color: #fff;
     font-size: .7rem;
     padding: 8px 15px;
+}
+.text_head .btn:hover{
+    background-color: var(--darkteal);
 }
 #close_hint{
     display: none;
@@ -933,9 +953,12 @@ footer a{
 }
 
 #generate_text{
-    background-color: var(--teal);
-    color: var(--darkteal);
+    background-color: var(--teal2);
+    color: #fff;
     font-weight: bold;
+}
+#generate_text:hover{
+    background-color: var(--darkteal);
 }
 
 #loading{
@@ -969,7 +992,7 @@ footer a{
     height: 30px;
     border-radius: 50%;
     background-color: var(--teal);
-    animation: moving 3s linear infinite;
+    animation: moving 2.3s linear infinite;
     margin: 1rem auto;
     transform: translateX(-2rem);
     animation-play-state: paused;
@@ -983,6 +1006,63 @@ footer a{
         background-color: yellow;
     }
 
+}
+
+
+/* Modal code for blogs section */
+.modal{
+    position: fixed;
+    background: rgb(0 0 0 / 81%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    z-index: 20;
+    top: 0;
+    left: 0;
+    padding: .3rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: .3s;
+}
+.modal.active{
+    opacity: 1;
+    pointer-events: all;
+}
+.modal_dialog{
+    background-color: var(--teal);
+    padding: .7rem;
+    border-radius: 3px;
+}
+.modal_content .head{
+    margin: .5rem 0;
+}
+.modal_content .head h3{
+    font-size: 1.5rem;
+    color: var(--darkteal);
+}
+.modal_content .body{
+    margin: 1rem 0;
+}
+.modal_content .body p{
+    font-size: .9rem;
+    line-height: 1.4rem;
+}
+.modal_content .actions{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.modal_content .actions .btn{
+    background: var(--teal2);
+    font-weight: bold;
+    color: #fff;
+    margin: .5rem 0 0 .4rem;
+}
+.modal_content .actions .btn:hover{
+    background: var(--darkteal);
+    color: #fff;
 }
 
 
@@ -1102,6 +1182,10 @@ footer a{
     }
     .result{
         padding: .5rem .5rem;
+    }
+    .h2h{
+        font-size: 1.5rem;
+        padding: .5rem;
     }
     #search {
         padding: .5rem .5rem;

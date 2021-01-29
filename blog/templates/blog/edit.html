@@ -16,7 +16,11 @@
         <a href="#" id="show_hint" class="btn">Hints</a>
         <a href="#" class="btn" id="save_form">Save</a>
         <a href="{% url 'blogs' %}" class="btn">Leave</a>
-        <a href="#" class="btn danger">Delete</a>
+        {% if blog %}
+            <a href="#" deleteLink="{% url 'delete_blog' slug=blog.slug %}" id="delete_blog_in_edit" class="btn danger">Delete</a>
+        {% else %}
+            <a href="{% url 'blogs' %}" class="btn danger">Cancel</a>
+        {% endif %}
         <!-- <a href="#" class="btn">Buy Credits</a> -->
     </div>
 
@@ -118,6 +122,25 @@
         <div class="container">
             <div class="circle"></div>
             <h3>Generating Content ...</h3>
+        </div>
+    </div>
+
+
+    <div class="modal">
+        <div class="modal_dialog">
+            <div class="modal_content">
+                <div class="head">
+                    <h3>Delete blog</h3>
+                </div>
+                <div class="body">
+                    <p>Are you sure you want to delete this blog?</p>
+                </div>
+                <div class="actions">
+                    <a class="btn close_delete" href="#">No</a>
+                    <a class="btn danger" href="#">Yes, Delete blog</a>
+                </div>
+            </div>
+
         </div>
     </div>
 

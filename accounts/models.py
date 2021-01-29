@@ -1,9 +1,13 @@
+from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
-# from django.db.models.signals import pre_save, post_save
-# from django.dispatch import receiver
+from django.core.mail import send_mail
+from django.db.models.signals import pre_save, post_save
+from django.dispatch import receiver
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+
+from social_django.models import UserSocialAuth
 
 
 class UserManager(BaseUserManager):
@@ -70,10 +74,10 @@ class User(AbstractBaseUser):
     def get_absolute_url(self):
         return reverse('login')
 
-    # def email_user(self, subject, message, fail=True):
-    #     # print(message)
-    #     val = send_mail(subject=subject, message=message, from_email=settings.DEFAULT_FROM_EMAIL, recipient_list=[self.email], fail_silently=fail)
-    #     return True if val else False
+    def email_user(self, subject, message, fail=True):
+        print(message)
+        val = send_mail(subject=subject, message=message, from_email=settings.DEFAULT_FROM_EMAIL, recipient_list=[self.email], fail_silently=fail)
+        return True if val else False
 
     @property
     def is_active(self):
@@ -100,6 +104,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     credit = models.IntegerField(default=0)
     level = models.CharField(max_length=1, choices=LEVELS, default=1)
+    # social_user = models.ForeignKey(UserSocialAuth, on_delete=models.DO_NOTHING, null=True)
 
     def __str__(self):
         return self.user.username
@@ -107,7 +112,7 @@ class Profile(models.Model):
 
 
 
-# @receiver(post_save, sender=User)
-# def create_profile(sender, instance, created, **kwargs):
-#     if created:
-#         pro=Profile.objects.create(username=username, user=instance)
+@receiver(post_save, sender=User)
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        pro=Profile.objects.create(user=instance, level='1', credit=10)
