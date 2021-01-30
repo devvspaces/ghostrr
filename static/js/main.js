@@ -339,34 +339,37 @@ try{
 
 
 // Get Stripe publishable key
-try{
-    fetch("/payments/config/")
-    .then((result) => { return result.json(); })
-    .then((data) => {
-    // Initialize Stripe.js
-    const stripe = Stripe(data.publicKey);
-    
-    // new
-    // Event handler
-    let sumbitBtn = document.querySelector("#submitBtn")
-    sumbitBtn.addEventListener("click", () => {
-        // Show loader
-        loading.classList.add('active')
-
-        // Get Checkout Session ID
-        fetch("/payments/create-checkout-session/")
+if (payment_foo == 1){
+    try{
+        fetch("/payments/config/")
         .then((result) => { return result.json(); })
         .then((data) => {
-        console.log(data);
-
-        // Redirect to Stripe Checkout
-        return stripe.redirectToCheckout({sessionId: data.sessionId})
-        })
-        .then((res) => {
-        console.log(res);
+        // Initialize Stripe.js
+        const stripe = Stripe(data.publicKey);
+        
+        // new
+        // Event handler
+        let sumbitBtn = document.querySelector("#submitBtn")
+        sumbitBtn.addEventListener("click", () => {
+            // Show loader
+            loading.classList.add('active')
+    
+            // Get Checkout Session ID
+            fetch("/payments/create-checkout-session/")
+            .then((result) => { return result.json(); })
+            .then((data) => {
+            console.log(data);
+    
+            // Redirect to Stripe Checkout
+            return stripe.redirectToCheckout({sessionId: data.sessionId})
+            })
+            .then((res) => {
+            console.log(res);
+            });
         });
-    });
-    });
-} catch(e){
-
+        });
+    } catch(e){
+    
+    }
 }
+

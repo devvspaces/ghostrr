@@ -115,6 +115,7 @@ def stripe_webhook(request):
         client_reference_id = payment_json['data']['object']['client_reference_id']
         user = User.objects.get(pk=client_reference_id)
         user.profile.credit = user.profile.credit + 200
+        user.profile.level = '1'
         user.profile.save()
 
 
