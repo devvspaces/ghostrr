@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.sites.shortcuts import get_current_site
+from django.http import HttpResponseRedirect
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.encoding import force_text,force_bytes
@@ -165,12 +166,15 @@ class LoginPage(FormView):
         if form.is_valid():
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
-            user = get_object_or_404(User, email=email)
-            # user = authenticate(request, username=email, password=password)
-            # print(user)
+            user = authenticate(request, username=email, password=password)
             if user:
                 login(request, user)
                 messages.success(request, 'You have successfully logged in')
+                
+                # User may want to buy pro package
+                pro = request.GET.get('pro')
+                if pro:
+                    return redirect('pricings')
                 return redirect('index_page')
         
         
@@ -211,6 +215,11 @@ class RegisterPage(FormView):
         if form.is_valid():
             user = form.save()
             messages.success(request, 'You account have been successfully created')
+            
+            # User may want to buy pro package
+            pro = request.GET.get('pro')
+            if pro:
+                return redirect('/accounts/login/?pro=1')
             return redirect('signin')
         
         context = self.get_context_data()

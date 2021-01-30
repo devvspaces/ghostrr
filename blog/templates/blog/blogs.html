@@ -9,7 +9,7 @@
     <div class="head_nav">
         <h2>Historical Blogs</h2>
         <a href="{% url 'create_blog' %}" class="btn">Create</a>
-        <a href="#" class="btn">Buy Credits</a>
+        <a href="{% url 'pricings' %}" class="btn">Buy Credits</a>
     </div>
 
     <h2 class="result">Results {% if total_blogs > 0 %}({{total_blogs}} {{blog_plural_or_not}}){% endif %}</h2>

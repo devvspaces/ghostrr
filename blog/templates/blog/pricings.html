@@ -39,7 +39,7 @@
                     <li>Help center access</li>
                 </ul>
                 {% if request.user.is_authenticated %}
-                    <a class="btn" href="#">Buy Now</a>
+                    <a class="btn" href="#" id="submitBtn">Buy Now</a>
                 {% else %}
                     <a class="btn" href="{% url 'register' %}?pro=1">Buy Now</a>
                 {% endif %}
@@ -61,4 +61,11 @@
             </div>
         </div>
     </section>
+    <div id="loading">
+        <div class="container">
+            <div class="circle"></div>
+            <h3>Processing Payment Request ...</h3>
+        </div>
+    </div>
+    <script src="https://js.stripe.com/v3/"></script>
 {% endblock %}

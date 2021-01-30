@@ -8,10 +8,10 @@
     <ul id="navigation">
         <li><a href="#" class="close_nav"><i class="fas fa-times"></i></a></li>
         <li><a href="{% url 'index_page' %}">Home</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'cases' %}">Case Studies</a></li>
         {% if not request.user.is_authenticated %}
             <li><a href="#">Product</a></li>
-            <li><a href="{% url 'about' %}">About</a></li>
-            <li><a href="{% url 'cases' %}">Case Studies</a></li>
             <li><a href="{% url 'pricings' %}">Pricing</a></li>
             <li><a href="{% url 'signin' %}">Login</a></li>
             <li><a href="{% url 'register' %}">Create content now</a></li>

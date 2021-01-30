@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'corsheaders',
    # LOCAL
    'accounts',
+   'payments',
 ]
 
 MIDDLEWARE = [
@@ -185,3 +186,8 @@ EMAIL_PORT=587
 EMAIL_USE_TLS=True
 EMAIL_HOST_USER = 'netrobeweb@gmail.com'
 EMAIL_HOST_PASSWORD = 'wpcgtxfwmiqnlbwv'
+
+
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51IElZYAPFPeEXZsZGZ64kmnkeXB51dvunK40rdp03RNhSQ3QUsDByAys8l4XwmUNI12zZSOSMV0Hckis3gLp04Hi00cDa1f0NB'
+STRIPE_SECRET_KEY = 'sk_test_51IElZYAPFPeEXZsZQkI40drnRXmS8dsLmRqOv0EKqyqgMPXB65JgosR1aFREPL3lTHftssyzUxjVIS2xnBUp3mNC00OWm7tixI'
+STRIPE_ENDPOINT_SECRET = 'whsec_xKDwUJBDBy6ygx0DzMfqicXlofaKJkj9'

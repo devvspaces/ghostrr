@@ -1,16 +1,18 @@
 let toggle_nav = document.querySelector('#toggle_nav')
 let nav = document.querySelector('#navigation')
 let close_nav = document.querySelector('.close_nav')
-toggle_nav.onclick = function (event) {
-    if (nav.classList.contains('active')){
-        nav.classList.remove('active')
-    } else {
-        nav.classList.add('active')
+try{
+    toggle_nav.onclick = function (event) {
+        if (nav.classList.contains('active')){
+            nav.classList.remove('active')
+        } else {
+            nav.classList.add('active')
+        }
     }
-}
-close_nav.onclick = function (event) {
-    nav.classList.remove('active')
-}
+    close_nav.onclick = function (event) {
+        nav.classList.remove('active')
+    }
+} catch(e){}
 
 
 // Code to make close icon on alert messages delete messages
@@ -96,7 +98,10 @@ function getCookie(name) {
 }
 
 
-let csrftoken = getCookie('csrftoken');
+let csrftoken = ''
+try{
+    csrftoken = getCookie('csrftoken');
+} catch(e){}
 
 
 function csrfSafeMethod(method) {
@@ -280,38 +285,88 @@ try{
 let delete_btn = document.querySelectorAll('.delete_btn')
 let modal = document.querySelector('.modal')
 let close_delete = document.querySelectorAll('.close_delete')
-delete_btn.forEach(i=>{
-    i.onclick = function(event){
-        event.preventDefault()
+try{
+    delete_btn.forEach(i=>{
+        i.onclick = function(event){
+            event.preventDefault()
+    
+            // Get link element on modal with class danger
+            let delete_el = modal.querySelector('.danger')
+            delete_el.href = this.getAttribute('deleteLink')
+            
+            modal.classList.add('active')
+        }
+    })
+} catch(e){
 
+}
+try{
+    modal.onclick = function (event) {
+        if(event.target == modal){
+            modal.classList.remove('active')
+        }
+    }
+} catch(e){
+    
+}
+try{
+    close_delete.forEach(i=>{
+        i.onclick = function(event){
+            event.preventDefault()
+            modal.classList.remove('active')
+        }
+    })
+} catch(e){
+    
+}
+
+
+// Code to delete a blog in edit mode
+let delete_blog_in_edit = document.querySelector('#delete_blog_in_edit')
+try{
+    delete_blog_in_edit.onclick = function(event){
+        event.preventDefault()
+    
         // Get link element on modal with class danger
         let delete_el = modal.querySelector('.danger')
         delete_el.href = this.getAttribute('deleteLink')
         
         modal.classList.add('active')
     }
-})
-modal.onclick = function (event) {
-    if(event.target == modal){
-        modal.classList.remove('active')
-    }
-}
-close_delete.forEach(i=>{
-    i.onclick = function(event){
-        event.preventDefault()
-        modal.classList.remove('active')
-    }
-})
-
-
-// Code to delete a blog in edit mode
-let delete_blog_in_edit = document.querySelector('#delete_blog_in_edit')
-delete_blog_in_edit.onclick = function(event){
-    event.preventDefault()
-
-    // Get link element on modal with class danger
-    let delete_el = modal.querySelector('.danger')
-    delete_el.href = this.getAttribute('deleteLink')
+} catch(e){
     
-    modal.classList.add('active')
+}
+
+
+// Get Stripe publishable key
+try{
+    fetch("/payments/config/")
+    .then((result) => { return result.json(); })
+    .then((data) => {
+    // Initialize Stripe.js
+    const stripe = Stripe(data.publicKey);
+    
+    // new
+    // Event handler
+    let sumbitBtn = document.querySelector("#submitBtn")
+    sumbitBtn.addEventListener("click", () => {
+        // Show loader
+        loading.classList.add('active')
+
+        // Get Checkout Session ID
+        fetch("/payments/create-checkout-session/")
+        .then((result) => { return result.json(); })
+        .then((data) => {
+        console.log(data);
+
+        // Redirect to Stripe Checkout
+        return stripe.redirectToCheckout({sessionId: data.sessionId})
+        })
+        .then((res) => {
+        console.log(res);
+        });
+    });
+    });
+} catch(e){
+
 }
