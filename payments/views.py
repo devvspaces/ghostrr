@@ -53,7 +53,6 @@ def create_checkout_session(request):
                     }
                 ]
             )
-            print(dir(stripe.checkout.Session.create))
             return JsonResponse({'sessionId': checkout_session['id']})
         except Exception as e:
             return JsonResponse({'error': str(e)})
@@ -102,7 +101,6 @@ def stripe_webhook(request):
 
     # Handle the checkout.session.completed event
     if event['type'] == 'checkout.session.completed':
-        print("Payment was successful.")
         # print(request.body)
         # with open('payments/user_payments.json', 'w') as fric:
         #     datas = json.dumps(request.body.decode())
