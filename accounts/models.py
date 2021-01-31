@@ -13,12 +13,12 @@ from social_django.models import UserSocialAuth
 class UserManager(BaseUserManager):
     def create_user(self, email, username=None, password=None, is_active=True, is_staff=False,
                     is_admin=False):
-        if not email:
-            raise ValueError("User must provide an email")
+        # if not email:
+        #     raise ValueError("User must provide an email")
         if not username:
             raise ValueError("User must provide a username")
-        if not password:
-            raise ValueError("User must provide a password")
+        # if not password:
+        #     raise ValueError("User must provide a password")
 
         user = self.model(email=self.normalize_email(email), username=username)
         user.set_password(password)

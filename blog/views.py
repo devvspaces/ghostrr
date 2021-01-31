@@ -29,6 +29,14 @@ from .utils import call_gpt, get_limit_for_level
 
 class IndexPage(TemplateView):
     template_name = 'blog/index.html'
+    extra_context = {
+        'title': 'Home'
+    }
+    
+    def get_context_data(self, *args, **kwargs):
+        context = self.extra_context
+
+        return context
 
 class CasePage(TemplateView):
     template_name = 'blog/case.html'
@@ -147,6 +155,9 @@ class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
                 # Check if user have enough credit to use the api
                 user_credit = request.user.profile.credit
 
+                # Get copy length from copy_length
+                copy_length = int(form.cleaned_data.get('copy_length'))*0.5
+
                 # Set returning data
                 data_return = {
                     'title': 'Enter the title you want for this blog here',
@@ -158,19 +169,32 @@ class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
                     # Use api to generate text
                     sentence = form.cleaned_data.get('sentence')
                     copy_length = form.cleaned_data.get('copy_length')
-                    response_data = call_gpt(sentence, copy_length)
-                    texts = response_data['choices'][0]['text']
 
-                    # Reduce user request on succefull call of api
-                    request.user.profile.credit = user_credit - 1
-                    request.user.profile.save()
+                    try:
+                        response_data = call_gpt(sentence, copy_length)
 
-                    data_return['text'] = texts
+                        texts = response_data['choices'][0]['text']
+
+                    except:
+                        texts = ''
+
+                    # This means if the data returned is not greater than 50% of the sentence length
+                    # required by the user, this should not run
+                    if len(texts) > copy_length:
+                        # Reduce user request on succefull call of api
+                        request.user.profile.credit = user_credit - 1
+                        request.user.profile.save()
+
+                        data_return['text'] = texts
+                    else:
+                        data_return['text'] = 0
+                        data_return['error_message'] = 'We could not generate your text for you please try again'
                     
                     return JsonResponse(data_return, status=200)
                 else:
                     # Setting text to zero tells the browser that this user has no more credits
                     data_return['text'] = 0
+                    data_return['error_message'] = 'You have no more credits, buy more credits to generate more contents'
                     return JsonResponse(data_return, status=200)
             
             return JsonResponse({'errors': form.errors}, status=400)
@@ -261,6 +285,9 @@ class EdiBlogPage(LoginRequiredMixin, UserPassesTestMixin, FormView):
                 # Check if user have enough credit to use the api
                 user_credit = request.user.profile.credit
 
+                # Get copy length from copy_length
+                copy_length = int(form.cleaned_data.get('copy_length'))*0.5
+
                 # Set returning data
                 data_return = {
                     'title': 'Enter the title you want for this blog here',
@@ -270,19 +297,34 @@ class EdiBlogPage(LoginRequiredMixin, UserPassesTestMixin, FormView):
 
                 if user_credit > 0:
                     # Use api to generate text
-                    response_data = call_gpt(form.cleaned_data.get('sentence'))
-                    texts = response_data['choices'][0]['text']
+                    sentence = form.cleaned_data.get('sentence')
+                    copy_length = form.cleaned_data.get('copy_length')
 
-                    # Reduce user request on succefull call of api
-                    request.user.profile.credit = user_credit - 1
-                    request.user.profile.save()
+                    try:
+                        response_data = call_gpt(sentence, copy_length)
 
-                    data_return['text'] = texts
+                        texts = response_data['choices'][0]['text']
+
+                    except:
+                        texts = ''
+
+                    # This means if the data returned is not greater than 50% of the sentence length
+                    # required by the user, this should not run
+                    if len(texts) > copy_length:
+                        # Reduce user request on succefull call of api
+                        request.user.profile.credit = user_credit - 1
+                        request.user.profile.save()
+
+                        data_return['text'] = texts
+                    else:
+                        data_return['text'] = 0
+                        data_return['error_message'] = 'We could not generate your text for you please try again'
                     
                     return JsonResponse(data_return, status=200)
                 else:
                     # Setting text to zero tells the browser that this user has no more credits
                     data_return['text'] = 0
+                    data_return['error_message'] = 'You have no more credits, buy more credits to generate more contents'
                     return JsonResponse(data_return, status=200)
             
             return JsonResponse({'errors': form.errors}, status=400)

@@ -41,12 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
    # add these
-   'rest_framework',
-   'oauth2_provider',
+#    'rest_framework',
+#    'oauth2_provider',
    'social_django',
-#    'social.apps.django_app.default',
-   'drf_social_oauth2',
-    'corsheaders',
+#    'drf_social_oauth2',
+    # 'corsheaders',
    # LOCAL
    'accounts',
    'payments',
@@ -61,7 +60,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     	# add these
-   'corsheaders.middleware.CorsMiddleware',
+#    'corsheaders.middleware.CorsMiddleware',
    'django.middleware.common.CommonMiddleware',
    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
@@ -80,9 +79,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',
-               'social_django.context_processors.login_redirect',
-    #            'social.apps.django_app.context_processors.backends',
-    # 'social.apps.django_app.context_processors.login_redirect',
+                'social_django.context_processors.login_redirect',
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
             ],
         },
     },
@@ -93,20 +92,20 @@ WSGI_APPLICATION = 'ghostrr.wsgi.application'
 AUTHENTICATION_BACKENDS = (
     # 'social_core.backends.github.GithubOAuth2',
     # 'social_core.backends.twitter.TwitterOAuth',
-    # 'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
     # 'drf_social_oauth2.backends.DjangoOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
-REST_FRAMEWORK = {
-   'DEFAULT_AUTHENTICATION_CLASSES': (
-       'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-       'drf_social_oauth2.authentication.SocialAuthentication',
-   )
-}
-CORS_ALLOWED_ORIGINS = [
-   "http://localhost:8000",
-   "http://127.0.0.1:8000"
-]
+# REST_FRAMEWORK = {
+#    'DEFAULT_AUTHENTICATION_CLASSES': (
+#        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+#        'drf_social_oauth2.authentication.SocialAuthentication',
+#    )
+# }
+# CORS_ALLOWED_ORIGINS = [
+#    "http://localhost:8000",
+#    "http://127.0.0.1:8000"
+# ]
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -139,6 +138,24 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# SOCIAL_AUTH_PIPELINE = [  # Note: Sequence of functions matters here.
+#     'social.pipeline.social_auth.social_details',  # 0
+#     'social.pipeline.social_auth.social_uid',  # 1
+#     'social.pipeline.social_auth.auth_allowed',  # 2
+#     'social.pipeline.social_auth.social_user',  # 3
+#     'social.pipeline.user.get_username',  # 4
+#     'social.pipeline.social_auth.associate_by_email',  # 5
+#     'social.pipeline.social_auth.associate_user',  # 6
+#     'social.pipeline.social_auth.load_extra_data',  # 7
+#     'social.pipeline.user.user_details',  # 8
+# ]
+
+# Adding conditional functions to pipepline.
+# NOTE: Sequence of functions matters here.
+# if config.GCPAuthentication.AUTO_CREATE_ACCOUNTS:
+#     SOCIAL_AUTH_PIPELINE.insert(6, 'social.pipeline.user.create_user')
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -153,8 +170,8 @@ USE_L10N = True
 USE_TZ = True
 
 
-SOCIAL_AUTH_GITHUB_KEY = '16a4a6f93d87719992e6'
-SOCIAL_AUTH_GITHUB_SECRET = 'c9c93ba12639660c4c142a0d918022477393dc27'
+# SOCIAL_AUTH_GITHUB_KEY = '16a4a6f93d87719992e6'
+# SOCIAL_AUTH_GITHUB_SECRET = 'c9c93ba12639660c4c142a0d918022477393dc27'
 
 SOCIAL_AUTH_FACEBOOK_KEY = '965291520898027'
 SOCIAL_AUTH_FACEBOOK_SECRET = 'd2f892119bf1d3a4828e3a027831e281'

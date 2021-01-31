@@ -33,7 +33,6 @@ class CreateBlogForm(forms.Form):
 		pk = self.data.get('pk')
 		# Get user form pk
 		user = get_object_or_404(User, pk=pk)
-		print('hohoho here\n\n')
 
 		copy_length = int(self.data.get('copy_length'))
 		limit = int(get_limit_for_level(user.profile.level))

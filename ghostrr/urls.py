@@ -22,7 +22,7 @@ urlpatterns = [
     path('accounts/',include('accounts.urls')),
     path('payments/', include('payments.urls')),
     # add these
-   path('api-auth/', include('rest_framework.urls')),
+#    path('api-auth/', include('rest_framework.urls')),
    path('oauth/', include('social_django.urls', namespace='social')),
-   path('api-auth/', include('drf_social_oauth2.urls',namespace='drf')),#???? namespace='drf' is mandatory
+#    path('api-auth/', include('drf_social_oauth2.urls',namespace='drf')),#???? namespace='drf' is mandatory
 ]

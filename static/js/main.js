@@ -189,10 +189,11 @@ function handleFormSuccess(data, textStatus, jqXHR){
     // console.log(textStatus)
     // console.log(jqXHR)
     let text = data['text']
+    console.log(data)
 
     // Check if text == 0
     if(text==0){
-        alert('You have no more credits, buy more credits to generate more contents')
+        alert(data['error_message'])
     } else {
         text_content.innerText = text
 
