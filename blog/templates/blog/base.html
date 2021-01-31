@@ -47,16 +47,15 @@
             <ul>
               <a href="#">Terms</a> 
               <a href="{% url 'about' %}">About</a>
-              <a href="{% url 'cases' %}">Case Studies</a>
               <a href="mailto:support@ghostrr.com">Contact Us</a> 
               {% if request.user.is_authenticated %}
                 <a href="{% url 'account' %}">Account</a>
                 <a href="{% url 'blogs' %}">Blogs</a>
                 <a href="{% url 'logout' %}">Logout</a>
               {% else %}
-                <a href="{% url 'pricings' %}">Contact Us</a>
-                <a href="{% url 'signin' %}">Contact Us</a>
-                <a href="{% url 'register' %}">Contact Us</a>
+                <a href="{% url 'pricings' %}">Pricing</a>
+                <a href="{% url 'signin' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
               {% endif %}
             </ul>
               

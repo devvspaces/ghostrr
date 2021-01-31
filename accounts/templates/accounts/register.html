@@ -54,6 +54,7 @@
             </fieldset>
             <button class="submit btn">Sign Up</button>
             <a href="{% url 'signin' %}" class="btn">Login</a>
+            <a href="{% url 'social:begin' 'facebook' %}" class="btn">Login with Facebook</a>
         </form>
     </div>
 {% endblock %}
