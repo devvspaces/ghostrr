@@ -38,6 +38,12 @@ class IndexPage(TemplateView):
 
         return context
 
+class TermsPage(TemplateView):
+    template_name = 'blog/terms.html'
+    extra_context = {
+        'title': 'Terms and Conditions'
+    }
+
 class CasePage(TemplateView):
     template_name = 'blog/case.html'
     extra_context = {

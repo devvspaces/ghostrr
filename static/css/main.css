@@ -1155,6 +1155,35 @@ footer a{
     background-color: var(--darkteal);
 }
 
+section.terms_body {
+    padding: 2rem 1rem;
+}
+.terms_header h1{
+    font-size: 2rem;
+    color: var(--darkteal);
+}
+.terms_header p{
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: bold;
+    margin-top: .5rem;
+}
+section.terms_body p{
+    margin: 1rem 0;
+    line-height: 1.5rem;
+    font-size: 1rem;
+}
+section.terms_body h2{
+    margin-bottom: 1rem;
+    color: var(--darkteal);
+}
+section.terms_body h3{
+    margin: 1rem 0;
+}
+section.terms_body ul{
+    margin-left: 2rem;
+}
+
 
 
 /* Responsive design */

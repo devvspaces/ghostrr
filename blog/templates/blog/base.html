@@ -45,7 +45,7 @@
         <footer>
             <p>&copy; 2020 Ghostrr Company, Inc.</p>
             <ul>
-              <a href="#">Terms</a> 
+              <a href="{% url 'terms' %}">Terms</a> 
               <a href="{% url 'about' %}">About</a>
               <a href="mailto:support@ghostrr.com">Contact Us</a> 
               {% if request.user.is_authenticated %}
