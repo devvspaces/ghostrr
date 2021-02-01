@@ -27,19 +27,13 @@ class CreateBlogForm(forms.Form):
 	title = forms.CharField(max_length=255, help_text='Enter the title you want for this blog here')
 	sentence = forms.CharField(widget=forms.TextInput(), help_text='Describe the blog you want to generate here')
 	copy_text = forms.CharField(widget=forms.TextInput(), required=False)
-	copy_length = forms.IntegerField(help_text='Enter the length of copy you want')
+	copy_length = forms.IntegerField(help_text='Select the length of copy you want')
 
 	def clean_copy_length(self):
-		pk = self.data.get('pk')
-		# Get user form pk
-		user = get_object_or_404(User, pk=pk)
-
 		copy_length = int(self.data.get('copy_length'))
-		limit = int(get_limit_for_level(user.profile.level))
-		
-		if (copy_length > limit) and (limit != -1):
-			raise forms.ValidationError(f"You have passed your copy limit of {limit}, if you want more copy length upgrade to pro.")
-		
+
+		if copy_length not in [1,2]:
+			raise forms.ValidationError('Invalid length selected')
 		return copy_length
 
 	def save(self, commit=True):

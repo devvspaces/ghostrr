@@ -168,7 +168,7 @@ class UserRegisterForm(forms.ModelForm):
 							widget=forms.PasswordInput,
 							min_length=8,
 							help_text=password_validation.password_validators_help_text_html())
-	username=forms.CharField(help_text='Enter the username you want to use here')
+	username=forms.CharField(help_text='Enter the username you want to use here', required=False)
 	class Meta:
 		model=User
 		fields=("email","username","password",)

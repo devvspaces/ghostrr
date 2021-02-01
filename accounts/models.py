@@ -9,6 +9,8 @@ from django.utils.translation import gettext_lazy as _
 
 from social_django.models import UserSocialAuth
 
+from .utils import get_usable_name
+
 
 class UserManager(BaseUserManager):
     def create_user(self, email, username=None, password=None, is_active=True, is_staff=False,
@@ -110,6 +112,13 @@ class Profile(models.Model):
         return self.user.username
 
 
+@receiver(pre_save, sender=User)
+def create_username(sender, instance, **kwargs):
+    if len(instance.username)<1:
+        if len(instance.email)>0:
+            instance.username = get_usable_name(instance)
+        else:
+            instance.username = get_usable_name(instance, name='user')
 
 
 @receiver(post_save, sender=User)

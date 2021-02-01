@@ -155,9 +155,6 @@ class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
                 # Check if user have enough credit to use the api
                 user_credit = request.user.profile.credit
 
-                # Get copy length from copy_length
-                copy_length = int(form.cleaned_data.get('copy_length'))*0.5
-
                 # Set returning data
                 data_return = {
                     'title': 'Enter the title you want for this blog here',
@@ -167,8 +164,15 @@ class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
 
                 if user_credit > 0:
                     # Use api to generate text
+                    title = form.cleaned_data.get('title')
                     sentence = form.cleaned_data.get('sentence')
                     copy_length = form.cleaned_data.get('copy_length')
+
+                    # Analyze the response length
+                    if copy_length == 1:
+                        copy_length = 5000
+                    else:
+                        copy_length = 1000
 
                     try:
                         response_data = call_gpt(sentence, copy_length)
@@ -180,15 +184,17 @@ class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
 
                     # This means if the data returned is not greater than 50% of the sentence length
                     # required by the user, this should not run
-                    if len(texts) > copy_length:
+                    if len(texts) > (copy_length*0.5):
                         # Reduce user request on succefull call of api
                         request.user.profile.credit = user_credit - 1
                         request.user.profile.save()
 
-                        data_return['text'] = texts
+                        # Combine the title and sentence
+                        total_text = title + '\n\n' + sentence + '\n\n'
+                        data_return['text'] = total_text + texts
                     else:
                         data_return['text'] = 0
-                        data_return['error_message'] = 'We could not generate your text for you please try again'
+                        data_return['error_message'] = 'Your text generation was not completed, please try again'
                     
                     return JsonResponse(data_return, status=200)
                 else:

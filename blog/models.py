@@ -6,10 +6,14 @@ from .utils import get_usable_slug
 
 # Create your models here.
 class Blogs(models.Model):
+    LENGTHS = (
+        ('1', 'Minimum Word 500',),
+        ('2', 'Maximum Word 1000',),
+    )
     profile = models.ForeignKey('accounts.Profile', on_delete=models.CASCADE)
     title = models.CharField(max_length=225)
     sentence = models.CharField(max_length=500)
-    copy_length = models.IntegerField(default=0)
+    copy_length = models.CharField(choices=LENGTHS, max_length=1)
     copy_text = models.TextField()
     slug = models.SlugField()
 

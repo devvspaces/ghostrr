@@ -13,7 +13,7 @@
         <form method="POST">
             {% csrf_token %}
             <h3>Create Awesome Content Today!</h3>
-            <fieldset error='{% if form.username.errors %}True{% endif %}'>
+            <!-- <fieldset error='{% if form.username.errors %}True{% endif %}'>
                 <label>Username</label>
                 <input type="text" name='username' value="{% if form.username.value %}{{form.username.value}}{% endif %}">
                 <small>
@@ -25,7 +25,7 @@
                         {{form.username.help_text}}
                     {% endif %}
                 </small>
-            </fieldset>
+            </fieldset> -->
             <fieldset error='{% if form.email.errors %}True{% endif %}'>
                 <label>Email</label>
                 <input type="email" name='email' value="{% if form.email.value %}{{form.email.value}}{% endif %}">

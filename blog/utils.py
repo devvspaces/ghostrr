@@ -17,7 +17,8 @@ def get_usable_slug(instance, slug=None):
 
 
 
-def call_gpt(prompt='', response_length=512):
+def call_gpt(prompt='', response_length=1000):
+		
 	api_key = 'sk-d7Ooti8pkq5BsnZrHPDpg5c0ExghIw2pmQbVMwXA'
 
 	openai.api_key = api_key

@@ -95,7 +95,15 @@
                 </fieldset>
                 <fieldset id="copy_length" error='{% if form.copy_length.errors %}True{% endif %}'>
                     <label>Length of copy</label>
-                    <input type="number" name='copy_length' value="{% if form.copy_length.value %}{{form.copy_length.value}}{% endif %}">
+                    <!-- <input type="number" name='' value="{% if form.copy_length.value %}{{form.copy_length.value}}{% endif %}"> -->
+                    <div class="radios">
+                        <div class="aradio">
+                            <input type="radio" name="copy_length" value="1"><p>Minimum Word 500</p>
+                        </div>
+                        <div class="aradio">
+                            <input type="radio" name="copy_length" value="2"><p>Maximum Word 1000</p>
+                        </div>
+                    </div>
                     <small>
                         {% if form.copy_length.errors %}
                             {% for i in form.copy_length.errors %}

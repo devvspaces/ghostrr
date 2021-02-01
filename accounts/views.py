@@ -231,7 +231,7 @@ class RegisterPage(FormView):
 class AccountPage(LoginRequiredMixin, FormView):
     template_name = 'accounts/profile.html'
     extra_context = {
-        'title': 'Account',
+        'title': 'My Account',
     }
     form_class = UserUpdateFormPage
 

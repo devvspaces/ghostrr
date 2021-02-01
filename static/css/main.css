@@ -268,7 +268,7 @@ section.one .benefits .lists .box{
     background-color: #fff;
     border-radius: 10px;
     overflow: hidden;
-    margin: 2rem 1.5rem 0 0;
+    margin: 2rem 1.5rem;
     border: 1px solid var(--teal);
 }
 section.one .benefits .lists .box .head{
@@ -294,10 +294,12 @@ section.one .benefits .lists .box .content .supporting_text{
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
+    text-align: center;
 }
 section.one .benefits .lists .box .content p{
     line-height: 1.3rem;
     font-size: .9rem;
+    text-align: center;
 }
 
 
@@ -317,10 +319,12 @@ section.two.white{
     padding-top: 4rem;
 }
 section.two h2{
+    margin: 0 auto;
     font-size: 2.5rem;
     max-width: 700px;
     margin-bottom: 3.5rem;
     color: var(--darkteal);
+    text-align: center;
 }
 section.two .divide{
     display: flex;
@@ -331,6 +335,9 @@ section.two .divide{
 }
 section.two .divide:nth-child(odd){
     flex-direction: row-reverse;
+}
+section.two.white .divide:nth-child(odd){
+    flex-direction: row;
 }
 section.two .divide .text{
     max-width: 400px;
@@ -434,14 +441,15 @@ section.two .divide .img img{
 }
 .about .side_img .btn{
     margin: 1rem auto;
-    background: var(--teal3);
-    color: var(--darkteal);
+    background: var(--teal2);
+    color: #fff;
     margin-top: 2rem;
+    font-size: 1.1rem;
 }
-.about .side_img .btn:hover{
+/* .about .side_img .btn:hover{
     background: var(--teal);
     color: #fff;
-}
+} */
 
 
 
@@ -499,15 +507,14 @@ section.two .divide .img img{
 }
 .finish .btn{
     margin: 2rem auto;
-    font-size: 1.3rem;
-    padding: 12px 2rem;
-    background: var(--darkteal);
+    font-size: 1.1rem;
+    background: var(--teal2);
     color: #fff;
 }
-.finish .btn:hover{
+/* .finish .btn:hover{
     background: #fff;
     color: var(--darkteal);
-}
+} */
 
 
 /* Authentication codes */
@@ -541,7 +548,8 @@ section.two .divide .img img{
 .edit_section form fieldset label{
     display: block;
     margin-bottom: .3rem;
-    font-size: .8rem;
+    font-size: .85rem;
+    font-weight: bold;
 }
 .auth_box form.view_mode fieldset small{
     display: none;
@@ -575,11 +583,20 @@ section.two .divide .img img{
 .auth_box form fieldset[error='True'] input,
 #search input.error,
 .edit_section form fieldset[error='True'] input,
-    .edit_section form fieldset[error='True'] textarea{
+.edit_section form fieldset[error='True'] textarea{
     border-color: red;
+}
+.auth_box form fieldset[error='True'] small,
+.edit_section form fieldset[error='True'] small,
+.edit_section form fieldset[error='True'] small{
+    color: red;
 }
 .auth_box form fieldset input:focus{
     border-color: var(--teal);
+}
+fieldset small ul li{
+    margin-left: 1rem;
+    margin-bottom: .5rem;
 }
 .auth_box form button.submit{
     display: block;
@@ -860,6 +877,25 @@ footer a{
     color: #fff;
 }
 
+.radios{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.radios input[type='radio']{
+    width: auto !important;
+    margin: 10px !important;
+}
+.aradio{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    flex-direction: row-reverse;
+    line-height: 1.5;
+    margin: 0 1rem 0 0;
+}
+
 
 
 /* Create blog section */
@@ -871,6 +907,7 @@ footer a{
     align-items: flex-start;
     padding: 1rem;
     /* flex-wrap: wrap; */
+    flex-direction: row-reverse;
 }
 .blog_panel .hint_section{
     width: 270px;
@@ -878,9 +915,10 @@ footer a{
 }
 .blog_panel .hint_section .box{
     background-color: var(--teal);
-    padding: 8px 10px;
+    padding: 12px 10px;
     border-radius: 5px;
     margin-bottom: 1.5rem;
+    text-align: center;
 }
 .blog_panel .hint_section .box h3{
     color: var(--darkteal);
@@ -895,7 +933,7 @@ footer a{
     background: var(--teal2);
     color: #fff;
     font-weight: bold;
-    margin: 1rem 0;
+    margin: 1rem auto;
 }
 .blog_panel .hint_section .box.credit .btn:hover{
     background: var(--darkteal);
@@ -913,6 +951,7 @@ footer a{
 }
 .blog_panel .hint_section .box.hints ul li p{
     line-height: 1.1rem;
+    text-align: left;
 }
 #show_hint{
     display: none;
