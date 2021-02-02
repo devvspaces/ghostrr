@@ -274,6 +274,7 @@ section.one .benefits .lists .box{
 section.one .benefits .lists .box .head{
     background: var(--teal);
     padding: 1rem 10px;
+    height: 150px;
 }
 section.one .benefits .lists .box .head h4{
     /* text-transform: uppercase; */
@@ -333,9 +334,9 @@ section.two .divide{
     flex-wrap: wrap;
     margin-bottom: 3rem;
 }
-section.two .divide:nth-child(odd){
+/* section.two .divide:nth-child(odd){
     flex-direction: row-reverse;
-}
+} */
 section.two.white .divide:nth-child(odd){
     flex-direction: row;
 }
@@ -359,11 +360,24 @@ section.two .divide .img{
     max-width: 400px;
     width: 400px;
 }
-section.two .divide .img.small {
+/* section.two .divide .img.small {
     width: 200px;
-}
+} */
 section.two .divide .img img{
     width: 100%;
+}
+
+.create_btns{
+    background-color: var(--teal);
+    display: grid;
+    place-items: center;
+    padding: 1rem .5rem;
+}
+.create_btns .btn{
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    background: var(--teal2);
+    color: #fff;
 }
 
 
@@ -742,6 +756,7 @@ footer a{
     border-radius: 3px;
     cursor: pointer;
     transition: .3s;
+    display: none;
 }
 .account_box h3  span.edit:hover{
     background: var(--teal);
