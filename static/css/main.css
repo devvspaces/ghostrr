@@ -247,6 +247,7 @@ section.one .supporters{
     font-size: 1.2rem;
     /* max-width: 600px; */
     text-align: center;
+    font-weight: bold;
 }
 section.one .supporters h2{
     font-size: 2.3rem;
@@ -417,7 +418,7 @@ section.two .divide .img img{
 }
 .pricing .box .head{
     padding: 1rem;
-    background-color: var(--darkteal);
+    background-color: var(--teal2);
 }
 .pricing .box .head p{
     color: #fff;
@@ -447,7 +448,7 @@ section.two .divide .img img{
     justify-content: center;
     margin: 2rem 0 .5rem 0;
     font-size: 1rem;
-    background: var(--darkteal);
+    background: var(--teal2);
 }
 
 
