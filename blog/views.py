@@ -191,13 +191,13 @@ class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
 
                     # This means if the data returned is not greater than 50% of the sentence length
                     # required by the user, this should not run
-                    if len(texts) > 50:
+                    if len(texts) > 10:
                         # Reduce user request on succefull call of api
                         request.user.profile.credit = user_credit - 1
                         request.user.profile.save()
 
                         # Combine the title and sentence
-                        total_text = title + '&#10;&#10;' + sentence + '\n\n'
+                        total_text = title + '       ' + sentence + '       '
                         data_return['text'] = total_text + texts
                     else:
                         data_return['text'] = ''
@@ -329,13 +329,13 @@ class EdiBlogPage(LoginRequiredMixin, UserPassesTestMixin, FormView):
 
                     # This means if the data returned is not greater than 50% of the sentence length
                     # required by the user, this should not run
-                    if len(texts) > 50:
+                    if len(texts) > 10:
                         # Reduce user request on succefull call of api
                         request.user.profile.credit = user_credit - 1
                         request.user.profile.save()
 
                         # Combine the title and sentence
-                        total_text = title + '&#10;&#10;' + sentence + '\n\n'
+                        total_text = title + '       ' + sentence + '       '
                         data_return['text'] = total_text + texts
                     else:
                         data_return['text'] = 0

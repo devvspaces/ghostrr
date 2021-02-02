@@ -207,7 +207,6 @@ function handleFormSuccess(data, textStatus, jqXHR){
     // Check if text == 0
     if(data['error_message']){
         alert(data['error_message'])
-        return
     } else {
         text_content.innerText = text
 
