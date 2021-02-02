@@ -1,3 +1,5 @@
+import string
+
 from django import forms
 from django.conf import settings
 from django.shortcuts import get_object_or_404
@@ -35,6 +37,42 @@ class CreateBlogForm(forms.Form):
 		if copy_length not in [1,2]:
 			raise forms.ValidationError('Invalid length selected')
 		return copy_length
+	
+	def clean_title(self):
+		title = self.data.get('title')
+
+		if len(title.split(' ')) < 4:
+			raise forms.ValidationError('Title is too short')
+		return title
+
+	def clean_sentence(self):
+		sentence = self.data.get('sentence')
+
+		sentence_split = sentence.split('.')
+		sentence_len = len(sentence_split)
+
+		# Validate length
+		if sentence_len < 4:
+			raise forms.ValidationError('Input sentences are too few')
+
+		# Validate words length
+		word_len = 0
+		for i in sentence_split:
+			word_len += len(i.split(' '))
+		
+		if word_len < 50:
+			raise forms.ValidationError('Input sentences are too short, Consider making the sentences longer or add another sentence.')
+		
+		# Validate length extra
+		word_avg = word_len / sentence_len
+		if word_avg < 15:
+			raise forms.ValidationError('Sentences entered are too short, Consider making the sentences more longer or meaningful.')
+		
+		# Reducing punctuation marks
+		for i in string.punctuation:
+			sentence = sentence.replace(i+i,i)
+
+		return sentence
 
 	def save(self, commit=True):
 		title = self.cleaned_data.get('title')

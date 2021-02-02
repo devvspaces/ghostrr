@@ -27,7 +27,7 @@ h1,h2,h3,h4,h5,h6{
 :root {
     --darkteal:#00576A;
     /* --teal: #9DD9D2; */
-    --teal: #c3ece8;
+    --teal: #e0f9f6;
     --teal2: #2cA6A4;
     --teal3: #5EC2B7;
     --teal4: #79BcB8;
@@ -249,7 +249,7 @@ section.one .supporters{
     text-align: center;
 }
 section.one .supporters h2{
-    font-size: 2rem;
+    font-size: 2.3rem;
     max-width: 500px;
     margin: 1rem auto;
     /* text-transform: uppercase; */
@@ -359,6 +359,9 @@ section.two .divide:nth-child(odd){
 }
 section.two.white .divide:nth-child(odd){
     flex-direction: row;
+}
+section.two.white .divide:nth-child(even){
+    flex-direction: row-reverse;
 }
 section.two .divide .text{
     max-width: 400px;
@@ -821,6 +824,7 @@ footer a{
     color: var(--teal2);
     padding: .5rem 1rem;
     margin-top: 2rem;
+    text-align: center;
 }
 .listings{
     padding: 1rem;
@@ -832,6 +836,7 @@ footer a{
     padding: 1rem 1rem;
     border-bottom: 1px solid var(--teal4);
     max-width: 700px;
+    margin: 0 auto;
 }
 .listings .list_box .actions{
     display: flex;
@@ -865,6 +870,7 @@ footer a{
     max-width: 400px;
     display: flex;
     align-items: center;
+    margin: 0 auto;
 }
 #search input{
     border-radius: 2rem;
@@ -891,6 +897,80 @@ footer a{
 #search button:hover{
     background-color: var(--darkteal);
 }
+
+
+.accounts_big{
+    max-width: 400px;
+    margin: 1rem auto;
+    padding: .5rem;
+}
+.accounts_big .btn{
+    border-radius: 8px !important;
+    background-color: var(--teal2);
+    color: #fff;
+}
+.accounts_big h2{
+    font-size: 2.5rem;
+    color: var(--darkteal);
+    margin-right: auto;
+}
+.accounts_big .emailing{
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+.accounts_big .emailing .btn{
+    min-width: 150px;
+    margin: .5rem 10px;
+    justify-content: center;
+}
+.accounts_big .emailing input{
+    display: block;
+    /* width: 100%; */
+    border: 1px solid var(--teal2);
+    outline: none;
+    padding: 8px 12px;
+    font-size: .9rem;
+    transition: .3s;
+    border-radius: 3px;
+    line-height: 1.4rem;
+}
+.accounts_big .boxes{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+.accounts_big .boxes .box{
+    margin: 1rem auto;
+    color: var(--darkteal);
+}
+.accounts_big .boxes .box p{
+    font-size: 2.2rem;
+    margin-top: 5px;
+}
+.account_links{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+.account_links .btn{
+    min-width: 150px;
+    justify-content: center;
+}
+.my_blog.btn{
+    width: 100%;
+    justify-content: center;
+    margin-top: 4rem;
+    font-size: 1rem;
+}
+
+
+
 
 .pagination{
     display: flex;
@@ -1220,8 +1300,18 @@ section.terms_body ul{
 }
 
 
+.null.text{
+    margin-left: -3rem;
+}
+
+
 
 /* Responsive design */
+@media(max-width: 830px){
+    .null.text {
+        margin-left: 0;
+    }
+}
 @media(max-width: 800px){
     section.two .divide .img{
         margin: 2rem 0;
@@ -1352,6 +1442,10 @@ section.terms_body ul{
     }
     .pagination {
         padding: .2rem 0rem;
+    }
+    .accounts_big .emailing .btn {
+        justify-content: center;
+        margin-left: 0;
     }
 }
 @media(max-width: 340px){

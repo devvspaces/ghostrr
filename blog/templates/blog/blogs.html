@@ -6,11 +6,34 @@
         {% include 'blog/navigation.html' %}
     </div>
 
-    <div class="head_nav">
+    <div class="accounts_big">
+        <h2>My Account</h2>
+        <div class='emailing'>
+            <input disabled type="email" name='email' value="{{request.user.email}}">
+            <a class="btn" href="{% url 'change_password' %}">Change Password</a>
+        </div>
+        <div class="boxes">
+            <div class="box">
+                <h4>Available Credits</h4>
+                <p>{{request.user.profile.credit}}</p>
+            </div>
+            <div class="box">
+                <h4>Total Blogs</h4>
+                <p>{{request.user.profile.blogs_set.count}}</p>
+            </div>
+        </div>
+        <div class="account_links">
+            <a class="btn" href="{% url 'create_blog' %}">Create Content Now &raquo;</a>
+            <a class="btn" href="{% url 'pricings' %}">Buy Credits</a>
+        </div>
+        <a class="btn my_blog">My Blogs</a>
+    </div>
+
+    <!-- <div class="head_nav">
         <h2>Historical Blogs</h2>
         <a href="{% url 'create_blog' %}" class="btn">Create</a>
         <a href="{% url 'pricings' %}" class="btn">Buy Credits</a>
-    </div>
+    </div> -->
 
     <h2 class="result">Results {% if total_blogs > 0 %}({{total_blogs}} {{blog_plural_or_not}}){% endif %}</h2>
     <form id="search">

@@ -15,11 +15,11 @@
         
         <a href="#" id="show_hint" class="btn">Hints</a>
         <a href="#" class="btn" id="save_form">Save</a>
-        <a href="{% url 'blogs' %}" class="btn">Leave</a>
+        <a href="{% url 'account' %}" class="btn">Leave</a>
         {% if blog %}
             <a href="#" deleteLink="{% url 'delete_blog' slug=blog.slug %}" id="delete_blog_in_edit" class="btn danger">Delete</a>
         {% else %}
-            <a href="{% url 'blogs' %}" class="btn danger">Cancel</a>
+            <a href="{% url 'account' %}" class="btn danger">Cancel</a>
         {% endif %}
         <!-- <a href="#" class="btn">Buy Credits</a> -->
     </div>
@@ -37,23 +37,31 @@
                 <ul>
                     <li>
                         <span><i class="fas fa-newspaper"></i></span>
-                        <p>Lorem dolore velit sed possimus, itaque quibusdam asperiores excepturi quia ducimus alias debitis ea! Repudiandae porro totam nostrum quae perferendis.
-                        </p>
+                        <p>Avoid short sentences</p>
                     </li>
                     <li>
                         <span><i class="fas fa-newspaper"></i></span>
-                        <p>Lorem dolore velit sed possimus, itaque quibusdam asperiores excepturi quia ducimus alias debitis ea! Repudiandae porro totam nostrum quae perferendis.
-                        </p>
+                        <p>Use punctuations only where necessary</p>
                     </li>
                     <li>
                         <span><i class="fas fa-newspaper"></i></span>
-                        <p>Lorem ipsore velit sed possimus, itaque quibusdam asperiores excepturi quia ducimus alias debitis ea! Repudiandae porro totam nostrum quae perferendis.
-                        </p>
+                        <p>Complete sentences are preferred over phrases.</p>
                     </li>
                     <li>
                         <span><i class="fas fa-newspaper"></i></span>
-                        <p>Lorem ipsure velit sed possimus, itaque quibusdam asperiores excepturi quia ducimus alias debitis ea! Repudiandae porro totam nostrum quae perferendis.
-                        </p>
+                        <p>Main context and Tone in all sentences provided as input.</p>
+                    </li>
+                    <li>
+                        <span><i class="fas fa-newspaper"></i></span>
+                        <p>Avoid use of extra spaces for indent.</p>
+                    </li>
+                    <li>
+                        <span><i class="fas fa-newspaper"></i></span>
+                        <p>Avoid pressing the enter key.</p>
+                    </li>
+                    <li>
+                        <span><i class="fas fa-newspaper"></i></span>
+                        <p>Ensure the Title and the Sentences are about the same topic.</p>
                     </li>
                 </ul>
             </div>

@@ -38,7 +38,11 @@
         </div>
         <div class="side_img">
             <img src="{% static 'images/digital-marketing-banner.svg' %}">
-            <a class="btn" href="{% url 'signin' %}">Create content now &raquo;</a>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'create_blog' %}" class="btn">Create Content Now &raquo;</a>
+            {% else %}
+                <a href="{% url 'signin' %}" class="btn">Create Content Now &raquo;</a>
+            {% endif %}
         </div>
     </section>
 
@@ -56,7 +60,11 @@
         </div>
         <div class="finish">
             <h3>In seconds, Ghostrr creates highly performing content aligned to vision.</h3>
-            <a class="btn" href="{% url 'signin' %}">Create content now &raquo;</a>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'create_blog' %}" class="btn">Create Content Now &raquo;</a>
+            {% else %}
+                <a href="{% url 'signin' %}" class="btn">Create Content Now &raquo;</a>
+            {% endif %}
         </div>
     </section>
 {% endblock %}
