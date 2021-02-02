@@ -176,7 +176,7 @@ class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
 
                     # Analyze the response length
                     if copy_length == 1:
-                        copy_length = 5000
+                        copy_length = 500
                     else:
                         copy_length = 1000
 
@@ -184,28 +184,29 @@ class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
                         response_data = call_gpt(sentence, copy_length)
 
                         texts = response_data['choices'][0]['text']
-
                     except:
                         texts = ''
+                        data_return['error_message'] = 'We could not generate your text for you please try again'
+                        return JsonResponse(data_return, status=200)
 
                     # This means if the data returned is not greater than 50% of the sentence length
                     # required by the user, this should not run
-                    if len(texts) > (copy_length*0.5):
+                    if len(texts) > 50:
                         # Reduce user request on succefull call of api
                         request.user.profile.credit = user_credit - 1
                         request.user.profile.save()
 
                         # Combine the title and sentence
-                        total_text = title + '\n\n' + sentence + '\n\n'
+                        total_text = title + '&#10;&#10;' + sentence + '\n\n'
                         data_return['text'] = total_text + texts
                     else:
-                        data_return['text'] = 0
+                        data_return['text'] = ''
                         data_return['error_message'] = 'Your text generation was not completed, please try again'
                     
                     return JsonResponse(data_return, status=200)
                 else:
                     # Setting text to zero tells the browser that this user has no more credits
-                    data_return['text'] = 0
+                    data_return['text'] = ''
                     data_return['error_message'] = 'You have no more credits, buy more credits to generate more contents'
                     return JsonResponse(data_return, status=200)
             
@@ -287,6 +288,7 @@ class EdiBlogPage(LoginRequiredMixin, UserPassesTestMixin, FormView):
         if request.is_ajax():
             # time.sleep(3)
             # Inputing data in form to validate
+            # Copyin request.POST
             default_post = request.POST.copy()
             default_post['pk'] = request.user.pk
 
@@ -297,40 +299,47 @@ class EdiBlogPage(LoginRequiredMixin, UserPassesTestMixin, FormView):
                 # Check if user have enough credit to use the api
                 user_credit = request.user.profile.credit
 
-                # Get copy length from copy_length
-                copy_length = int(form.cleaned_data.get('copy_length'))*0.5
-
                 # Set returning data
                 data_return = {
                     'title': 'Enter the title you want for this blog here',
                     'sentence': 'Describe the blog you want to generate here',
-                    'copy_length': 'Enter the length of copy you want',
+                    'copy_length': 'Select the length of copy you want',
                 }
 
                 if user_credit > 0:
                     # Use api to generate text
+                    title = form.cleaned_data.get('title')
                     sentence = form.cleaned_data.get('sentence')
                     copy_length = form.cleaned_data.get('copy_length')
+
+                    # Analyze the response length
+                    if copy_length == 1:
+                        copy_length = 500
+                    else:
+                        copy_length = 1000
 
                     try:
                         response_data = call_gpt(sentence, copy_length)
 
                         texts = response_data['choices'][0]['text']
-
                     except:
                         texts = ''
+                        data_return['error_message'] = 'We could not generate your text for you please try again'
+                        return JsonResponse(data_return, status=200)
 
                     # This means if the data returned is not greater than 50% of the sentence length
                     # required by the user, this should not run
-                    if len(texts) > copy_length:
+                    if len(texts) > 50:
                         # Reduce user request on succefull call of api
                         request.user.profile.credit = user_credit - 1
                         request.user.profile.save()
 
-                        data_return['text'] = texts
+                        # Combine the title and sentence
+                        total_text = title + '&#10;&#10;' + sentence + '\n\n'
+                        data_return['text'] = total_text + texts
                     else:
                         data_return['text'] = 0
-                        data_return['error_message'] = 'We could not generate your text for you please try again'
+                        data_return['error_message'] = 'Your text generation was not completed, please try again'
                     
                     return JsonResponse(data_return, status=200)
                 else:

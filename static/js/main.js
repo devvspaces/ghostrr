@@ -138,6 +138,7 @@ let sentence_form = document.getElementById('sentence_form')
 let copy_length_form = document.getElementById('copy_length_form')
 let copy_text_form  = document.querySelector('#copy_text_form ')
 let credit_data  = document.querySelector('#credit_data')
+let radios = document.querySelectorAll(".radios input[name='copy_length'")
 // let save_form = document.querySelectorAll('.save_form')
 
 
@@ -145,12 +146,25 @@ let credit_data  = document.querySelector('#credit_data')
 //     i.onclick = total_copy.submit()
 // })
 
+let retur = ''
+
+function get_radio_selection(){
+    radios.forEach(i=>{
+        if(i.checked==true){
+            retur = i.value
+            return
+        }
+    })
+}
+
 
 total_copy.submit(function(event) {
     event.preventDefault()
     title_form.value = title.children[1].value
     sentence_form.value = sentence.children[1].value
-    copy_length_form.value = copy_length.children[1].value
+    get_radio_selection()
+    copy_length_form.value = retur
+    console.log(get_radio_selection())
     copy_text_form.value = text_content.innerText
 
     this.submit()
@@ -191,8 +205,9 @@ function handleFormSuccess(data, textStatus, jqXHR){
     let text = data['text']
 
     // Check if text == 0
-    if(text==0){
+    if(data['error_message']){
         alert(data['error_message'])
+        return
     } else {
         text_content.innerText = text
 
