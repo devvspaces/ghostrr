@@ -238,14 +238,14 @@ section.one .supporters{
     margin: 2rem auto;
 }
 .extra_text {
-    padding: 2rem .5rem;
+    padding: 2rem 1rem;
     display: grid;
     place-items: center;
 }
 .extra_text p{
     line-height: 1.7rem;
     font-size: 1.2rem;
-    max-width: 600px;
+    /* max-width: 600px; */
     text-align: center;
 }
 section.one .supporters h2{
@@ -913,6 +913,7 @@ footer a{
     font-size: 2.5rem;
     color: var(--darkteal);
     margin-right: auto;
+    text-align: center;
 }
 .accounts_big .emailing{
     display: flex;
