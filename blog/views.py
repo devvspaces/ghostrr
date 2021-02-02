@@ -226,7 +226,7 @@ class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
             blog.save()
 
             messages.success(request, 'Your blog has been successfully created')
-            return redirect('blogs')
+            return redirect('account')
         
         context = self.get_context_data()
         context['form'] = form
@@ -404,7 +404,7 @@ class DeleteBlog(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         blog.delete()
         
         messages.success(request, 'Your blog has been successfully deleted')
-        return redirect('blogs')
+        return redirect('account')
 
 
 class EditLimitPage(LoginRequiredMixin, UserPassesTestMixin, FormView):
