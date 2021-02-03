@@ -212,6 +212,8 @@ function handleFormSuccess(data, textStatus, jqXHR){
 
         // Redude user credits
         credit_data.innerText = parseInt(credit_data.innerText)-1
+
+        alert('Blog saved!')
     }
 
     

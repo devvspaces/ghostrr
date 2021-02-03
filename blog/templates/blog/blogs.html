@@ -18,7 +18,7 @@
                 <p>{{request.user.profile.credit}}</p>
             </div>
             <div class="box">
-                <h4>Total Blogs</h4>
+                <h4>Generated Blogs</h4>
                 <p>{{request.user.profile.blogs_set.count}}</p>
             </div>
         </div>
@@ -26,7 +26,7 @@
             <a class="btn" href="{% url 'create_blog' %}">Create Content Now &raquo;</a>
             <a class="btn" href="{% url 'pricings' %}">Buy Credits</a>
         </div>
-        <a class="btn my_blog">My Blogs</a>
+        <!-- <a class="btn my_blog">My Blogs</a> -->
     </div>
 
     <!-- <div class="head_nav">
@@ -35,7 +35,7 @@
         <a href="{% url 'pricings' %}" class="btn">Buy Credits</a>
     </div> -->
 
-    <h2 class="result">Results {% if total_blogs > 0 %}({{total_blogs}} {{blog_plural_or_not}}){% endif %}</h2>
+    <h2 class="result">My Blogs</h2>
     <form id="search">
         <input type="text" name="search" placeholder="Search blogs with title ...">
         <button><i class="fas fa-search"></i></button>

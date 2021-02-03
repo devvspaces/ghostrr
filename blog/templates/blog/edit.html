@@ -7,14 +7,15 @@
     </div>
 
     <div class="head_nav">
-        {% if update %}
+        <!-- {% if update %}
             <h2>Update your blog</h2>
         {% else %}
-            <h2>Create a new blog</h2>
-        {% endif %}
+            <h2>Generate a blog</h2>
+        {% endif %} -->
+        <h2>Generate a blog</h2>
         
         <a href="#" id="show_hint" class="btn">Hints</a>
-        <a href="#" class="btn" id="save_form">Save</a>
+        <a href="#" class="btn d_none" id="save_form">Save</a>
         <a href="{% url 'account' %}" class="btn">Leave</a>
         {% if blog %}
             <a href="#" deleteLink="{% url 'delete_blog' slug=blog.slug %}" id="delete_blog_in_edit" class="btn danger">Delete</a>
@@ -28,7 +29,7 @@
         <div class="hint_section">
             <span id="close_hint" class="btn">Close Hint</span>
             <div class="box credit">
-                <h3>My Credits</h3>
+                <h3>Available Credits</h3>
                 <p id="credit_data">{{request.user.profile.credit}}</p>
                 <a class="btn" href="{% url 'pricings' %}">Buy more</a>
             </div>
@@ -36,31 +37,31 @@
                 <h3>Useful Hints</h3>
                 <ul>
                     <li>
-                        <span><i class="fas fa-newspaper"></i></span>
+                        <span><img src="{% static 'images/bulb.png' %}" width="100%" ></span>
                         <p>Avoid short sentences</p>
                     </li>
                     <li>
-                        <span><i class="fas fa-newspaper"></i></span>
+                        <span><img src="{% static 'images/bulb.png' %}" width="100%" ></span>
                         <p>Use punctuations only where necessary</p>
                     </li>
                     <li>
-                        <span><i class="fas fa-newspaper"></i></span>
+                        <span><img src="{% static 'images/bulb.png' %}" width="100%" ></span>
                         <p>Complete sentences are preferred over phrases.</p>
                     </li>
                     <li>
-                        <span><i class="fas fa-newspaper"></i></span>
+                        <span><img src="{% static 'images/bulb.png' %}" width="100%" ></span>
                         <p>Main context and Tone in all sentences provided as input.</p>
                     </li>
                     <li>
-                        <span><i class="fas fa-newspaper"></i></span>
+                        <span><img src="{% static 'images/bulb.png' %}" width="100%" ></span>
                         <p>Avoid use of extra spaces for indent.</p>
                     </li>
                     <li>
-                        <span><i class="fas fa-newspaper"></i></span>
+                        <span><img src="{% static 'images/bulb.png' %}" width="100%" ></span>
                         <p>Avoid pressing the enter key.</p>
                     </li>
                     <li>
-                        <span><i class="fas fa-newspaper"></i></span>
+                        <span><img src="{% static 'images/bulb.png' %}" width="100%" ></span>
                         <p>Ensure the Title and the Sentences are about the same topic.</p>
                     </li>
                 </ul>

@@ -199,6 +199,12 @@ class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
                         # Combine the title and sentence
                         total_text = title + '       ' + sentence + '       '
                         data_return['text'] = total_text + texts
+
+                        # Adding text data to form and saving
+                        blog_data = form.save()
+                        blog_data.copy_text = total_text + texts
+                        blog_data.profile = request.user.profile
+                        blog_data.save()
                     else:
                         data_return['text'] = ''
                         data_return['error_message'] = 'Your text generation was not completed, please try again'
@@ -285,6 +291,10 @@ class EdiBlogPage(LoginRequiredMixin, UserPassesTestMixin, FormView):
     def post(self, *args, **kwargs):
         request = self.request
 
+        # Get slug from request and get blog instance
+        slug = self.kwargs.get('slug')
+        blog = get_object_or_404(Blogs, slug=slug)
+
         if request.is_ajax():
             # time.sleep(3)
             # Inputing data in form to validate
@@ -337,6 +347,15 @@ class EdiBlogPage(LoginRequiredMixin, UserPassesTestMixin, FormView):
                         # Combine the title and sentence
                         total_text = title + '       ' + sentence + '       '
                         data_return['text'] = total_text + texts
+
+                        # Adding text data to form and saving
+                        blog_data = form.save()
+                        blog.title = blog_data.title
+                        blog.sentence = blog_data.sentence
+                        blog.copy_length = blog_data.copy_length
+                        blog.copy_text = total_text + texts
+                        blog.profile = request.user.profile
+                        blog.save()
                     else:
                         data_return['text'] = 0
                         data_return['error_message'] = 'Your text generation was not completed, please try again'
@@ -358,10 +377,6 @@ class EdiBlogPage(LoginRequiredMixin, UserPassesTestMixin, FormView):
 
         if form.is_valid():
             updated_blog = form.save()
-
-            # Get slug from request and get blog instance
-            slug = self.kwargs.get('slug')
-            blog = get_object_or_404(Blogs, slug=slug)
             
             # Set the user profile
             blog.title = updated_blog.title

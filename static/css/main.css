@@ -46,7 +46,7 @@ a,p{
     font-size: .8rem;
 }
 .d_none{
-    display: none;
+    display: none !important;
 }
 .btn{
     padding: 13px 15px;
@@ -838,7 +838,7 @@ footer a{
     flex-wrap: wrap;
     padding: 1rem 1rem;
     border-bottom: 1px solid var(--teal4);
-    max-width: 700px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 .listings .list_box .actions{
@@ -870,7 +870,7 @@ footer a{
 
 #search{
     padding: .5rem 1rem;
-    max-width: 400px;
+    max-width: 700px;
     display: flex;
     align-items: center;
     margin: 0 auto;
@@ -923,10 +923,11 @@ footer a{
     align-items: center;
     margin-top: 1rem;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 .accounts_big .emailing .btn{
     min-width: 150px;
-    margin: .5rem 10px;
+    margin: .5rem 0;
     justify-content: center;
 }
 .accounts_big .emailing input{
@@ -947,6 +948,7 @@ footer a{
     margin-top: 1rem;
     justify-content: space-between;
     flex-direction: row-reverse;
+    text-align: center;
 }
 .accounts_big .boxes .box{
     margin: 1rem auto;
@@ -978,10 +980,12 @@ footer a{
 
 .pagination{
     display: flex;
+    margin: 0 auto;
     align-items: center;
     margin-top: 2rem;
     padding: .2rem 1rem;
     flex-wrap: wrap;
+    max-width: 1000px;
 }
 .pagination .btn{
     margin: .2rem .3rem;
@@ -1010,7 +1014,7 @@ footer a{
     justify-content: center;
     align-items: center;
     width: fit-content;
-    flex-direction: row-reverse;
+    /* flex-direction: row-reverse; */
     line-height: 1.5;
     margin: 0 1rem 0 0;
 }
@@ -1062,11 +1066,15 @@ footer a{
 }
 .blog_panel .hint_section .box.hints ul li{
     margin: .8rem 0;
+    min-height: 2rem;
+    display: flex;
+    align-items: center;
 }
 .blog_panel .hint_section .box.hints ul li span{
     float: left;
-    margin: 0 .4rem .4rem 0;
     color: var(--darkteal);
+    min-width: 50px;
+    max-width: 50px;
 }
 .blog_panel .hint_section .box.hints ul li p{
     line-height: 1.1rem;
