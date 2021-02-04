@@ -93,6 +93,7 @@ AUTHENTICATION_BACKENDS = (
     # 'social_core.backends.github.GithubOAuth2',
     # 'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
     # 'drf_social_oauth2.backends.DjangoOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
@@ -207,4 +208,7 @@ EMAIL_HOST_PASSWORD = 'wpcgtxfwmiqnlbwv'
 
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51IElZYAPFPeEXZsZGZ64kmnkeXB51dvunK40rdp03RNhSQ3QUsDByAys8l4XwmUNI12zZSOSMV0Hckis3gLp04Hi00cDa1f0NB'
 STRIPE_SECRET_KEY = 'sk_test_51IElZYAPFPeEXZsZQkI40drnRXmS8dsLmRqOv0EKqyqgMPXB65JgosR1aFREPL3lTHftssyzUxjVIS2xnBUp3mNC00OWm7tixI'
-STRIPE_ENDPOINT_SECRET = 'whsec_xKDwUJBDBy6ygx0DzMfqicXlofaKJkj9'
+STRIPE_ENDPOINT_SECRET = 'whsec_DC9vDhpzev7Mvl1rmkhC1HMBZSlErksr'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '655857205556-q494j10qur6tadtit5tfotamu4e8n70l.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'liGxTUrIkcGzsgfAEsLOWi_i'
