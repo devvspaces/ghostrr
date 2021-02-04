@@ -3,6 +3,7 @@ import stripe
 import json
 
 from django.conf import settings # new
+from django.contrib.sites.shortcuts import get_current_site
 from django.http.response import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt # new
 from django.views.generic.base import TemplateView
@@ -25,7 +26,8 @@ def stripe_config(request):
 @csrf_exempt
 def create_checkout_session(request):
     if request.method == 'GET':
-        domain_url = 'http://localhost:8000/payments/'
+        site = get_current_site(request)
+        domain_url = 'http://'+site.domain+'/payments/'
         stripe.api_key = settings.STRIPE_SECRET_KEY
         try:
             # Create new Checkout Session for the order
