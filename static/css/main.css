@@ -399,7 +399,11 @@ section.two .divide .img img{
     place-items: center;
     padding: 1rem .5rem;
 }
-.create_btns .btn{
+.create_btns.white{
+    background-color: #fff;
+}
+.create_btns .btn,
+.extra_text .btn.cta{
     margin-top: 1rem;
     font-size: 1.1rem;
     background: var(--teal2);

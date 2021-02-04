@@ -52,7 +52,7 @@ class CreateBlogForm(forms.Form):
 		sentence_len = len(sentence_split)
 
 		# Validate length
-		if sentence_len < 4:
+		if sentence_len < 10:
 			raise forms.ValidationError('Input sentences are too few')
 
 		# Validate words length

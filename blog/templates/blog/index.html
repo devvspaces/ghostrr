@@ -80,7 +80,15 @@
                 15 languages. From English to Chinese. The results have been a measurable increase in revenue for our
                 delighted customers.
             </p>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'create_blog' %}" class="btn cta">Create Content Now &raquo;</a>
+            {% else %}
+                <a href="{% url 'signin' %}" class="btn cta">Create Content Now &raquo;</a>
+            {% endif %}
         </div>
+    </section>
+    <section class="create_btns white">
+        
     </section>
 
     <section class="two">
