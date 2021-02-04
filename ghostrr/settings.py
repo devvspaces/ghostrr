@@ -202,8 +202,8 @@ EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST="smtp.gmail.com"
 EMAIL_PORT=587
 EMAIL_USE_TLS=True
-EMAIL_HOST_USER = 'netrobeweb@gmail.com'
-EMAIL_HOST_PASSWORD = 'wpcgtxfwmiqnlbwv'
+EMAIL_HOST_USER = 'ghostrrcompany@gmail.com'
+EMAIL_HOST_PASSWORD = 'cnanttqdwuxbgfjr'
 
 
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51IElZYAPFPeEXZsZGZ64kmnkeXB51dvunK40rdp03RNhSQ3QUsDByAys8l4XwmUNI12zZSOSMV0Hckis3gLp04Hi00cDa1f0NB'
