@@ -378,7 +378,12 @@ section.two .divide .text p{
     line-height: 1.5rem;
     font-size: 1rem;
     color: var(--darkteal);
+}
+section.two.white .divide .text p{
     font-weight: bold;
+}
+section.two.white .divide .text p span{
+    font-weight: normal;
 }
 section.two.white .divide .text p{
     color: var(--teal2);
