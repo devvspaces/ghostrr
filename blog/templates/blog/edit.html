@@ -90,7 +90,7 @@
                     </small>
                 </fieldset>
                 <fieldset id="sentence" error='{% if form.sentence.errors %}True{% endif %}'>
-                    <label>Sentence</label>
+                    <label>Blog starts with...</label>
                     <textarea name="sentence">{% if form.sentence.value %}{{form.sentence.value}}{% endif %}</textarea>
                     <small>
                         {% if form.sentence.errors %}
@@ -136,7 +136,7 @@
                 <a href="#" class="btn" id="generate_text">Generate Content</a>
                 <div class="copy_area">
                     <div class="text_head">
-                        <label>Content</label>
+                        <label>AI generated Blog Result</label>
                         <a href="#" class="btn" id="copy_addy">Copy Content</a>
                     </div>
                     <p contenteditable="true" class="text_content">{% if form.copy_text.value %}{{form.copy_text.value|safe}}{% endif %}</p>

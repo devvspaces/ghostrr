@@ -26,8 +26,8 @@ class EditLimitForm(forms.Form):
 
 class CreateBlogForm(forms.Form):
 	pk = forms.IntegerField()
-	title = forms.CharField(max_length=255, help_text='Enter the title you want for this blog here')
-	sentence = forms.CharField(widget=forms.TextInput(), help_text='Describe the blog you want to generate here')
+	title = forms.CharField(max_length=255, help_text='Enter a meaningful title of 10-20 words for the blog.')
+	sentence = forms.CharField(widget=forms.TextInput(), help_text='Enter the first two or more meaningful sentences to set the blog context, approximately 100 words expected.')
 	copy_text = forms.CharField(widget=forms.TextInput(), required=False)
 	copy_length = forms.IntegerField(help_text='Select the length of copy you want')
 
