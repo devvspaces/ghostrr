@@ -139,17 +139,17 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# SOCIAL_AUTH_PIPELINE = [  # Note: Sequence of functions matters here.
-#     'social.pipeline.social_auth.social_details',  # 0
-#     'social.pipeline.social_auth.social_uid',  # 1
-#     'social.pipeline.social_auth.auth_allowed',  # 2
-#     'social.pipeline.social_auth.social_user',  # 3
-#     'social.pipeline.user.get_username',  # 4
-#     'social.pipeline.social_auth.associate_by_email',  # 5
-#     'social.pipeline.social_auth.associate_user',  # 6
-#     'social.pipeline.social_auth.load_extra_data',  # 7
-#     'social.pipeline.user.user_details',  # 8
-# ]
+SOCIAL_AUTH_PIPELINE = [  # Note: Sequence of functions matters here.
+    'social.pipeline.social_auth.social_details',  # 0
+    'social.pipeline.social_auth.social_uid',  # 1
+    'social.pipeline.social_auth.auth_allowed',  # 2
+    'social.pipeline.social_auth.social_user',  # 3
+    'social.pipeline.user.get_username',  # 4
+    'social.pipeline.social_auth.associate_by_email',  # 5
+    'social.pipeline.social_auth.associate_user',  # 6
+    'social.pipeline.social_auth.load_extra_data',  # 7
+    'social.pipeline.user.user_details',  # 8
+]
 
 # Adding conditional functions to pipepline.
 # NOTE: Sequence of functions matters here.
@@ -206,8 +206,8 @@ EMAIL_HOST_USER = 'ghostrrcompany@gmail.com'
 EMAIL_HOST_PASSWORD = 'cnanttqdwuxbgfjr'
 
 
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51IElZYAPFPeEXZsZGZ64kmnkeXB51dvunK40rdp03RNhSQ3QUsDByAys8l4XwmUNI12zZSOSMV0Hckis3gLp04Hi00cDa1f0NB'
-STRIPE_SECRET_KEY = 'sk_test_51IElZYAPFPeEXZsZQkI40drnRXmS8dsLmRqOv0EKqyqgMPXB65JgosR1aFREPL3lTHftssyzUxjVIS2xnBUp3mNC00OWm7tixI'
+STRIPE_PUBLISHABLE_KEY = 'pk_live_51IElZYAPFPeEXZsZ7SnZRTlVNtvyo8cz5hnBHSDSDr9naGeXG5pobLDyJCOsyysn08cuz2o6g7tslzZs4DwLjnks00U3Ho1zob'
+STRIPE_SECRET_KEY = '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'
 STRIPE_ENDPOINT_SECRET = 'whsec_DC9vDhpzev7Mvl1rmkhC1HMBZSlErksr'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '655857205556-q494j10qur6tadtit5tfotamu4e8n70l.apps.googleusercontent.com'
