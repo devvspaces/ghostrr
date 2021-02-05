@@ -67,7 +67,7 @@ class CreateBlogForm(forms.Form):
 			raise forms.ValidationError('Very few words have been entered for the Blog description. Please enter at least 50 words')
 		
 		if word_len > 200:
-			raise forms.ValidationError('A lot words have been entered. Please enter less than 200 words')
+			raise forms.ValidationError('A lot of words have been entered. Please enter less than 200 words')
 		
 		# # Validate length extra
 		# word_avg = word_len / sentence_len

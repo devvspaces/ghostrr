@@ -408,14 +408,17 @@ section.two .divide .img img{
 .create_btns.white{
     background-color: #fff;
 }
-.create_btns .btn,
-.extra_text .btn.cta{
-    margin-top: 1rem;
+.create_btns .btn{
+    margin-top: -1rem;
     font-size: 1.1rem;
     background: var(--teal2);
     color: #fff;
+    margin-bottom: 3rem;
 }
 .extra_text .btn.cta{
+    font-size: 1.1rem;
+    background: var(--teal2);
+    color: #fff;
     margin-top: 3.5rem;
 }
 
