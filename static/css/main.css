@@ -415,6 +415,9 @@ section.two .divide .img img{
     background: var(--teal2);
     color: #fff;
 }
+.extra_text .btn.cta{
+    margin-top: 3.5rem;
+}
 
 
 /* Pricing section */

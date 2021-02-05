@@ -26,8 +26,8 @@ class EditLimitForm(forms.Form):
 
 class CreateBlogForm(forms.Form):
 	pk = forms.IntegerField()
-	title = forms.CharField(max_length=255, help_text='Enter a meaningful title of 10-20 words for the blog.')
-	sentence = forms.CharField(widget=forms.TextInput(), help_text='Enter the first two or more meaningful sentences to set the blog context, approximately 100 words expected.')
+	title = forms.CharField(max_length=255, help_text='Enter a meaningful title of 5-15 words for the blog.')
+	sentence = forms.CharField(widget=forms.TextInput(), help_text='Enter the first two or more meaningful sentences to set the blog context, approximately 50 - 100 words expected.')
 	copy_text = forms.CharField(widget=forms.TextInput(), required=False)
 	copy_length = forms.IntegerField(help_text='Select the length of copy you want')
 
@@ -41,8 +41,11 @@ class CreateBlogForm(forms.Form):
 	def clean_title(self):
 		title = self.data.get('title')
 
-		if len(title.split(' ')) < 4:
-			raise forms.ValidationError('Title is too short')
+		if len(title.split(' ')) < 5:
+			raise forms.ValidationError('Very few words have been entered for the title. Please enter at least 5 words')
+		
+		if len(title.split(' ')) > 30:
+			raise forms.ValidationError('A lot of words have been entered for the title. Please enter less than 30 words only')
 		return title
 
 	def clean_sentence(self):
@@ -51,9 +54,9 @@ class CreateBlogForm(forms.Form):
 		sentence_split = sentence.split('.')
 		sentence_len = len(sentence_split)
 
-		# Validate length
-		if sentence_len < 10:
-			raise forms.ValidationError('Input sentences are too few')
+		# # Validate length
+		# if sentence_len < 10:
+		# 	raise forms.ValidationError('Input sentences are too few')
 
 		# Validate words length
 		word_len = 0
@@ -61,16 +64,19 @@ class CreateBlogForm(forms.Form):
 			word_len += len(i.split(' '))
 		
 		if word_len < 50:
-			raise forms.ValidationError('Input sentences are too short, Consider making the sentences longer or add another sentence.')
+			raise forms.ValidationError('Very few words have been entered for the Blog description. Please enter at least 50 words')
 		
-		# Validate length extra
-		word_avg = word_len / sentence_len
-		if word_avg < 15:
-			raise forms.ValidationError('Sentences entered are too short, Consider making the sentences more longer or meaningful.')
+		if word_len > 200:
+			raise forms.ValidationError('A lot words have been entered. Please enter less than 200 words')
 		
-		# Reducing punctuation marks
-		for i in string.punctuation:
-			sentence = sentence.replace(i+i,i)
+		# # Validate length extra
+		# word_avg = word_len / sentence_len
+		# if word_avg < 15:
+		# 	raise forms.ValidationError('Sentences entered are too short, Consider making the sentences more longer or meaningful.')
+		
+		# # Reducing punctuation marks
+		# for i in string.punctuation:
+		# 	sentence = sentence.replace(i+i,i)
 
 		return sentence
 

@@ -7,7 +7,7 @@
     <a href="#" id="toggle_nav"><i class="fas fa-bars"></i></a>
     <ul id="navigation">
         <li><a href="#" class="close_nav"><i class="fas fa-times"></i></a></li>
-        <li><a href="{% url 'index_page' %}">Home</a></li>
+        <!-- <li><a href="{% url 'index_page' %}">Home</a></li> -->
         <li><a href="{% url 'about' %}">About</a></li>
         <li><a href="{% url 'cases' %}">Case Studies</a></li>
         {% if not request.user.is_authenticated %}
