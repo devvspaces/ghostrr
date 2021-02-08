@@ -178,10 +178,10 @@ class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
                     if copy_length == 1:
                         copy_length = 500
                     else:
-                        copy_length = 1000
+                        copy_length = 2000
 
                     try:
-                        response_data = call_gpt(sentence, copy_length)
+                        response_data = call_gpt(title +' '+sentence, copy_length)
 
                         texts = response_data['choices'][0]['text']
                     except:
@@ -197,7 +197,7 @@ class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
                         request.user.profile.save()
 
                         # Combine the title and sentence
-                        total_text = title + '       ' + sentence + '       '
+                        total_text = title + '\n\n' + sentence + '\n\n'
                         data_return['text'] = total_text + texts
 
                         # Adding text data to form and saving
@@ -329,7 +329,7 @@ class EdiBlogPage(LoginRequiredMixin, UserPassesTestMixin, FormView):
                         copy_length = 1000
 
                     try:
-                        response_data = call_gpt(sentence, copy_length)
+                        response_data = call_gpt(title +' '+sentence, copy_length)
 
                         texts = response_data['choices'][0]['text']
                     except:
@@ -345,7 +345,7 @@ class EdiBlogPage(LoginRequiredMixin, UserPassesTestMixin, FormView):
                         request.user.profile.save()
 
                         # Combine the title and sentence
-                        total_text = title + '       ' + sentence + '       '
+                        total_text = title + '\n\n' + sentence + '\n\n'
                         data_return['text'] = total_text + texts
 
                         # Adding text data to form and saving

@@ -1125,6 +1125,7 @@ footer a{
     padding: 8px;
     font-size: .9rem;
     line-height: 1.4rem;
+    white-space: pre-line;
 }
 .text_head{
     display: flex;
