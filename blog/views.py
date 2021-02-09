@@ -178,7 +178,7 @@ class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
                     if copy_length == 1:
                         copy_length = 600
                     else:
-                        copy_length = 1000
+                        copy_length = 900
 
                     try:
                         total_t = f'{title} {sentence}'
