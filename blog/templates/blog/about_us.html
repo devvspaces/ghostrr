@@ -51,14 +51,17 @@
         <div class="process">
             <div class="box">
                 <span class="number">1</span>
+                <div class="img_how"><img src="{% static 'images/ab1.jpg' %}"></div>
                 <p>Input your content Idea</p>
             </div>
             <div class="box">
                 <span class="number">2</span>
+                <div class="img_how"><img src="{% static 'images/ab2.jpg' %}"></div>
                 <p>Select length of copy</p>
             </div>
         </div>
         <div class="finish">
+            <img src="{% static 'images/ab3.jpg' %}">
             <h3>In seconds, Ghostrr creates highly performing content aligned to vision.</h3>
             {% if request.user.is_authenticated %}
                 <a href="{% url 'create_blog' %}" class="btn">Create Content Now &raquo;</a>

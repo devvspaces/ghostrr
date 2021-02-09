@@ -512,7 +512,7 @@ section.two .divide .img img{
 /* HOw it works section */
 .howitworks{
     padding: 4rem 1rem;
-    background: var(--teal);
+    background: #f0fbfa;
     text-align: center;
 }
 .howitworks h2{
@@ -524,13 +524,22 @@ section.two .divide .img img{
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 .howitworks .process .box{
-    width: 400px;
+    width: 95%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 2rem 0;
+}
+.howitworks .process .box .img_how{
+    width: 100%;
+    margin: 1rem 0;
+}
+.howitworks .process .box .img_how img{
+    width: 100%;
 }
 .howitworks .process .box p{
     font-size: 1.1rem;
@@ -553,6 +562,10 @@ section.two .divide .img img{
 
 .finish{
     margin: 4rem 0;
+}
+.finish img{
+    width: 95%;
+    margin-bottom: 2rem;
 }
 .finish h3{
     font-size: 2rem;
@@ -1440,7 +1453,25 @@ section.terms_body ul{
         border-radius: 3px;
         color: #fff;
     }
+    /* .howitworks .process .box{
+        width: 600px;
+    } */
 }
+/* @media(max-width: 620px){
+    .howitworks .process .box{
+        width: 550px;
+    }
+}
+@media(max-width: 560px){
+    .howitworks .process .box{
+        width: 450px;
+    }
+}
+@media(max-width: 470px){
+    .howitworks .process .box{
+        width: 100%;
+    }
+} */
 @media(max-width: 400px){
     .howitworks .process {
         flex-direction: column;
