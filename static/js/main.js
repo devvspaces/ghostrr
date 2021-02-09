@@ -232,42 +232,46 @@ function handleFormSuccess(data, textStatus, jqXHR){
 let nons = 0
 function handleFormError(jqXHR, textStatus){
     nons = jqXHR['responseJSON']
-    let title_err = nons['errors']['title']
-    let sentence_err = nons['errors']['sentence']
-    let copy_length_err = nons['errors']['copy_length']
-    if (title_err && title_err.length > 0){
-        let title_text = ''
-        title_err.forEach(i=>{
-            title_text = title_text + i +'<br>'
-        })
-        title.lastElementChild.innerHTML = title_text
-        title.setAttribute('error','True')
-    } else {
-        // Removing error and error text
-        title.removeAttribute('error')
-        title.lastElementChild.innerHTML = 'Enter the title you want for this blog here'
-    }
-    if (sentence_err && sentence_err.length > 0){
-        let title_text = ''
-        sentence_err.forEach(i=>{
-            title_text = title_text + i +'<br>'
-        })
-        sentence.lastElementChild.innerHTML = title_text
-        sentence.setAttribute('error','True')
-    } else{
-        sentence.removeAttribute('error')
-        sentence.lastElementChild.innerHTML = 'Describe the blog you want to generate here'
-    }
-    if (copy_length_err && copy_length_err.length > 0){
-        let title_text = ''
-        copy_length_err.forEach(i=>{
-            title_text = title_text + i +'<br>'
-        })
-        copy_length.lastElementChild.innerHTML = title_text
-        copy_length.setAttribute('error','True')
-    } else {
-        copy_length.removeAttribute('error')
-        copy_length.lastElementChild.innerHTML = 'Enter the length of copy you want'
+    try{
+        let title_err = nons['errors']['title']
+        let sentence_err = nons['errors']['sentence']
+        let copy_length_err = nons['errors']['copy_length']
+        if (title_err && title_err.length > 0){
+            let title_text = ''
+            title_err.forEach(i=>{
+                title_text = title_text + i +'<br>'
+            })
+            title.lastElementChild.innerHTML = title_text
+            title.setAttribute('error','True')
+        } else {
+            // Removing error and error text
+            title.removeAttribute('error')
+            title.lastElementChild.innerHTML = 'Enter the title you want for this blog here'
+        }
+        if (sentence_err && sentence_err.length > 0){
+            let title_text = ''
+            sentence_err.forEach(i=>{
+                title_text = title_text + i +'<br>'
+            })
+            sentence.lastElementChild.innerHTML = title_text
+            sentence.setAttribute('error','True')
+        } else{
+            sentence.removeAttribute('error')
+            sentence.lastElementChild.innerHTML = 'Describe the blog you want to generate here'
+        }
+        if (copy_length_err && copy_length_err.length > 0){
+            let title_text = ''
+            copy_length_err.forEach(i=>{
+                title_text = title_text + i +'<br>'
+            })
+            copy_length.lastElementChild.innerHTML = title_text
+            copy_length.setAttribute('error','True')
+        } else {
+            copy_length.removeAttribute('error')
+            copy_length.lastElementChild.innerHTML = 'Enter the length of copy you want'
+        }
+    } catch(e){
+        alert('Please try again')
     }
     // console.log(textStatus)
     loading.classList.remove('active')

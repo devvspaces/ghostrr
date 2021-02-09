@@ -524,15 +524,15 @@ section.two .divide .img img{
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    flex-wrap: wrap;
 }
 .howitworks .process .box{
-    width: 95%;
+    width: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 2rem 0;
+    margin: 1rem;
 }
 .howitworks .process .box .img_how{
     width: 100%;
@@ -542,9 +542,9 @@ section.two .divide .img img{
     width: 100%;
 }
 .howitworks .process .box p{
-    font-size: 1.1rem;
-    font-weight: bold;
+    font-size: 1.2rem;
     color: var(--darkteal);
+    font-family: 'Montserrat-Bold' !important;
 }
 .howitworks .process .box .number{
     display: flex;
@@ -1453,9 +1453,9 @@ section.terms_body ul{
         border-radius: 3px;
         color: #fff;
     }
-    /* .howitworks .process .box{
-        width: 600px;
-    } */
+    .howitworks .process .box{
+        margin: 1rem 0;
+    }
 }
 /* @media(max-width: 620px){
     .howitworks .process .box{
@@ -1466,12 +1466,12 @@ section.terms_body ul{
     .howitworks .process .box{
         width: 450px;
     }
-}
-@media(max-width: 470px){
+}*/
+@media(max-width: 500px){
     .howitworks .process .box{
         width: 100%;
     }
-} */
+}
 @media(max-width: 400px){
     .howitworks .process {
         flex-direction: column;
