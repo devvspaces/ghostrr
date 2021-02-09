@@ -176,15 +176,16 @@ class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
 
                     # Analyze the response length
                     if copy_length == 1:
-                        copy_length = 500
+                        copy_length = 900
                     else:
-                        copy_length = 2000
+                        copy_length = 1500
 
                     try:
-                        response_data = call_gpt(title +' '+sentence, copy_length)
+                        total_t = f'{title} {sentence}'
+                        response_data = call_gpt(total_t, copy_length)
 
                         texts = response_data['choices'][0]['text']
-                    except:
+                    except Exception as e:
                         texts = ''
                         data_return['error_message'] = 'We could not generate your text for you please try again'
                         return JsonResponse(data_return, status=200)
@@ -207,7 +208,7 @@ class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
                         blog_data.save()
                     else:
                         data_return['text'] = ''
-                        data_return['error_message'] = 'Your text generation was not completed, please try again'
+                        data_return['error_message'] = 'Your text generation was not completed, please add more blog description'
                     
                     return JsonResponse(data_return, status=200)
                 else:
