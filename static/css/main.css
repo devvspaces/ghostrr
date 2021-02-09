@@ -527,7 +527,7 @@ section.two .divide .img img{
     flex-wrap: wrap;
 }
 .howitworks .process .box{
-    width: 400px;
+    width: 700px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -564,7 +564,7 @@ section.two .divide .img img{
     margin: 4rem 0;
 }
 .finish img{
-    width: 95%;
+    width: 1400px;
     margin-bottom: 2rem;
 }
 .finish h3{
@@ -1350,6 +1350,21 @@ section.terms_body ul{
 
 
 /* Responsive design */
+@media(max-width: 1420px){
+    .finish img{
+        max-width: 1000px;
+    }
+}
+@media(max-width: 1020px){
+    .finish img{
+        max-width: 900px;
+    }
+}
+@media(max-width: 920px){
+    .finish img{
+        max-width: 95%;
+    }
+}
 @media(max-width: 830px){
     .null.text {
         margin-left: 0;
