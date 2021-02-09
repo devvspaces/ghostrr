@@ -176,9 +176,9 @@ class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
 
                     # Analyze the response length
                     if copy_length == 1:
-                        copy_length = 900
+                        copy_length = 600
                     else:
-                        copy_length = 1500
+                        copy_length = 1000
 
                     try:
                         total_t = f'{title} {sentence}'
@@ -325,9 +325,9 @@ class EdiBlogPage(LoginRequiredMixin, UserPassesTestMixin, FormView):
 
                     # Analyze the response length
                     if copy_length == 1:
-                        copy_length = 900
+                        copy_length = 500
                     else:
-                        copy_length = 1500
+                        copy_length = 900
 
                     try:
                         total_t = f'{title} {sentence}'
