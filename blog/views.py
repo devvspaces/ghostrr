@@ -176,9 +176,9 @@ class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
 
                     # Analyze the response length
                     if copy_length == 1:
-                        copy_length = 600
+                        copy_length = 1000
                     else:
-                        copy_length = 900
+                        copy_length = 1500
 
                     try:
                         total_t = f'{title} {sentence}'
@@ -206,6 +206,11 @@ class CreateAndEdiBlogPage(LoginRequiredMixin, FormView):
                         blog_data.copy_text = total_text + texts
                         blog_data.profile = request.user.profile
                         blog_data.save()
+
+                        # Get blog update url
+                        update_url = reverse('update_blog',kwargs={'slug':blog_data.slug})
+                        # print(update_url, dir(update_url))
+                        data_return['update_url'] = update_url
                     else:
                         data_return['text'] = ''
                         data_return['error_message'] = 'Your text generation was not completed, please add more blog description'

@@ -199,7 +199,7 @@ try{
 }
 
 function handleFormSuccess(data, textStatus, jqXHR){
-    // console.log(data)
+    console.log(data)
     // console.log(textStatus)
     // console.log(jqXHR)
     let text = data['text']
@@ -214,6 +214,16 @@ function handleFormSuccess(data, textStatus, jqXHR){
         credit_data.innerText = parseInt(credit_data.innerText)-1
 
         alert('Blog saved!')
+
+        // Changing window location to the location of the update blog page
+        try{
+            let update_url = data['update_url']
+            if (update_url){
+                window.location.href = window.location.origin + update_url
+            }
+        } catch (e){
+
+        }
     }
 
     
