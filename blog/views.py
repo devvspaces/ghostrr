@@ -28,7 +28,7 @@ from .utils import call_gpt, get_limit_for_level
 
 
 class IndexPage(TemplateView):
-    template_name = 'blog/index.html'
+    template_name = 'index.html'
     extra_context = {
         'title': 'Home'
     }

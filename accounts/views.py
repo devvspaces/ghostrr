@@ -326,3 +326,64 @@ def Logout(request):
     logout(request)
     messages.success(request, 'You have successfully logged out')
     return redirect('index_page')
+
+
+class Settings(FormView):
+    template_name = 'accounts/reset_password_form.html'
+    extra_context = {
+        'title': 'Reset Password',
+    }
+    form_class = ResetPasswordValidateEmailForm
+
+    def get_context_data(self, *args, **kwargs):
+        context = self.extra_context
+        context['form'] = self.get_form_class()
+
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+
+        user = request.user
+
+        try:
+            gmail_login = user.social_auth.get(provider='google-oauth2')
+        except UserSocialAuth.DoesNotExist:
+            gmail_login = None
+
+        try:
+            facebook_login = user.social_auth.get(provider='facebook')
+        except UserSocialAuth.DoesNotExist:
+            facebook_login = None
+
+        can_disconnect = (user.social_auth.count() > 1 or user.has_usable_password())
+
+        context['gmail_login'] = gmail_login,
+        context['facebook_login'] = facebook_login,
+        context['can_disconnect'] = can_disconnect
+
+        return render(request, self.template_name, context)
+    
+    def post(self, *args, **kwargs):
+        request = self.request
+
+        form = self.get_form_class()
+        form = form(request.POST)
+
+        if form.is_valid():
+            email = form.cleaned_data.get('email')
+            user = get_object_or_404(User, email=email)
+
+            # Send the reset link to user
+            subject = "Ghostrr Password Reset"
+            message = verification_message(request, user)
+            sent=user.email_user(subject,message)
+
+            messages.success(request, 'We sent your password reset link to your email, click on the link to reset your password')
+
+            return redirect('signin')
+        
+        context = self.get_context_data()
+        context['form'] = form
+
+        return render(request, self.template_name, context)

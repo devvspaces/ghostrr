@@ -1,0 +1,57 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div id='hero'>
+        {% include 'blog/navigation.html' %}
+    </div>
+
+    <div class="head_nav">
+        <h2>Account Settings</h2>
+        <a href="{% url 'pricings' %}" class="btn">Buy Credits</a>
+    </div>
+
+    <div class="account">
+        <div class="account_box">
+            <h3>Social Accounts</h3>
+            <div class="social_accounts">
+                <div class="an_acc">
+                    <h3>Google</h3>
+                    {% if gmail_login %}
+                        <p>Connected as <a href="https://github.com/{{ gmail_login.extra_data.login }}/" target="_blank">{{ gmail_login.extra_data.login }}</a></p>
+                        {% if can_disconnect %}
+                            <form method="post" action="{% url 'social:disconnect' 'google-oauth2' %}">
+                                {% csrf_token %}
+                                <button type="submit">Disconnect from Google</button>
+                            </form>
+                        {% else %}
+                            <button type="button" disabled>Disconnect from Google</button>
+                            <p style="color: red">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Github.</p>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'social:begin' 'github' %}">Connect to GitHub</a>
+                    {% endif %}
+                </div>
+                <div class="an_acc">
+                    <h3>Facebook</h3>
+                    {% if facebook_login %}
+                        <p>Connected as <a href="https://facebook.com/{{ facebook_login.extra_data.id }}/" target="_blank">{{ facebook_login.extra_data.id }}</a></p>
+                        {% if can_disconnect %}
+                        <form method="post" action="{% url 'social:disconnect' 'facebook' %}">
+                            {% csrf_token %}
+                            <button type="submit">Disconnect from Facebook</button>
+                        </form>
+                        {% else %}
+                        <button type="button" disabled>Disconnect from Facebook</button>
+                        <p style="color: red">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Facebook.</p>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'social:begin' 'facebook' %}">Connect to Facebook</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+{% endblock %}

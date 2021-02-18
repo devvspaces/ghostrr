@@ -191,6 +191,10 @@ LOGIN_URL = 'signin'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'index_page'
 
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/accounts/settings/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/accounts/settings/'
+SOCIAL_AUTH_RAISE_EXCEPTIONS = False
+
 
 # LEvels credits
 CREDITS = (10, 200)
